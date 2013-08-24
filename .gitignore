@@ -1,6 +1,16 @@
+# Build artifacts
 *.class
+target
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Intellij things
+*.iml
+.idea
+
+# Mac things
+.DS_Store
+
