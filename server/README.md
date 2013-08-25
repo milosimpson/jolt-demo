@@ -25,6 +25,17 @@ To see all the available goals for the App Engine plugin, run
 
     mvn help:describe -Dplugin=appengine
 
+# Build and Test
+
+You can run Google App Engine from inside Intellij.
+Need to change the config to run "mvn verify" instead of its usual "Make"
+
+# Deploy
+
+Deploy from inside Intellij.
+Adjust the "<appengine.app.version>" in the server pom file.
+
+
 # Reference
 
 https://developers.google.com/appengine/docs/java/tools/maven

@@ -4,19 +4,21 @@ import javax.ws.rs.*;
 import java.io.IOException;
 import java.util.Map;
 
-@Path("transform")
-public class JerseyHelloWorld {
+@Path("/transform")
+public class JoltTransformServlet {
 
     // Plain text works!
     @GET
+//    @Path("/getter")
     // @Consumes(MediaType.TEXT_PLAIN)
     public String list(){
-        return "Got it!";
+        return "Getter";
     }
 
     // Plain text works!
     //@Consumes({"application/json"})
     @POST
+//    @Path("/poster")
     public String transform( String comboStr )
             throws IOException
     {
