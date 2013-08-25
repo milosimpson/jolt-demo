@@ -9,7 +9,7 @@ Google App Engine has a truly free tier, so building a small war so that people 
 Jolt transforms online.
 
 HA!
-http://jolt-demo.appspot.com/rest/jolt
+http://jolt-demo.appspot.com/transform
 
 Deploy from inside Intellij.
 

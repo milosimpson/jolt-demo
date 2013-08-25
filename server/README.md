@@ -32,6 +32,7 @@ Need to change the config to run "mvn verify" instead of its usual "Make"
 
 # Deploy
 
+Do a "mvn clean install" from the top, otherwise the "${appengine.app.version}" from the "appengine-web.xml" does not get filled in.
 Deploy from inside Intellij.
 Adjust the "<appengine.app.version>" in the server pom file.
 

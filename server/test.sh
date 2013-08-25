@@ -1,7 +1,10 @@
 #!/bin/sh
 
-curl http://localhost:8080/transform
+server=http://localhost:8080
+#server=http://jolt-demo.appspot.com
+
+curl ${server}/transform
 
 echo ""
 
-curl -XPOST -d@test.json http://localhost:8080/transform
+curl -XPOST -d@test.json ${server}/transform
