@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+
+<!-- Use the cdn hosted bootstrap -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" media="screen" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Jolt Transform Demo Page</h1>
+
+Here you can experiment with the Jolt Transforms without having to download and run the Java code.
+
+<form id="tranformForm" role="form">
+    <div class="form-group">
+        <label for="jsonInput">Json Input</label>
+        <textarea form="tranformForm" class="form-control" id="jsonInput" rows="25"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="jsonSpec">Jolt Spec</label>
+        <textarea form="tranformForm" class="form-control" id="jsonSpec" rows="25"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Process</button>
+
+    <div class="form-group">
+        <label for="outputJson">Transformed Json / Error Messages </label>
+        <textarea form="tranformForm" class="form-control" id="outputJson" rows="25"></textarea>
+    </div>
+</form>
+
+</div>  <!-- / container -->
+
+</body>
+</html>
