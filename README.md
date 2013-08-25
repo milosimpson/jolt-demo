@@ -8,5 +8,8 @@ Demo and Doc site for Jolt
 Google App Engine has a truly free tier, so building a small war so that people can play with
 Jolt transforms online.
 
+HA!
+http://jolt-demo.appspot.com/rest/jolt
 
+Deploy from inside Intellij.
 
