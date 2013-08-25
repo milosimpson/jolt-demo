@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap 101 Template</title>
+    <title>Jolt Transform Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
 
 <!-- Use the cdn hosted bootstrap -->
@@ -24,25 +24,83 @@
 
 <div class="container">
 
-<h1>Jolt Transform Demo Page</h1>
+<h1>Jolt Transform Demo</h1>
 
 Here you can experiment with the Jolt Transforms without having to download and run the Java code.
 
-<form id="tranformForm" role="form">
-    <div class="form-group">
-        <label for="jsonInput">Json Input</label>
-        <textarea form="tranformForm" class="form-control" id="jsonInput" rows="25"></textarea>
+<!-- Old school form post here, till I can get a fancy Ajax request going. -->
+<form id="tranformForm" role="form" action="http://jolt-demo.appspot.com/transform" method="post">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <label for="combo">Json Input</label>
+        </div>
+        <div class="panel-body">
+            <textarea form="tranformForm" class="form-control" name="combo" id="combo" rows="25">
+{
+"input" : {
+"rating": {
+"primary": {
+"value": 3
+},
+"quality": {
+"value": 3
+}
+}
+},
+"spec" : [
+{
+"operation": "shift",
+"spec": {
+"rating": {
+"primary": {
+"value": "Rating"
+},
+"*": {
+"value": "SecondaryRatings.&1.Value",
+"$": "SecondaryRatings.&.Id"
+}
+}
+}
+},
+{
+"operation": "default",
+"spec": {
+"Range" : 5,
+"SecondaryRatings" : {
+"*" : {
+"Range" : 5
+}
+}
+}
+}
+]
+}
+            </textarea>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="jsonSpec">Jolt Spec</label>
-        <textarea form="tranformForm" class="form-control" id="jsonSpec" rows="25"></textarea>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <label for="jsonSpec">Jolt Spec</label>
+        </div>
+        <div class="panel-body">
+            <textarea form="tranformForm" class="form-control" id="jsonSpec" rows="25"></textarea>
+        </div>
     </div>
+
     <button type="submit" class="btn btn-default">Process</button>
 
-    <div class="form-group">
-        <label for="outputJson">Transformed Json / Error Messages </label>
-        <textarea form="tranformForm" class="form-control" id="outputJson" rows="25"></textarea>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <label for="outputJson">Transformed Json / Error Messages </label>
+        </div>
+        <div class="panel-body">
+            <textarea form="tranformForm" class="form-control" id="outputJson" rows="25"></textarea>
+        </div>
     </div>
+
 </form>
 
 </div>  <!-- / container -->

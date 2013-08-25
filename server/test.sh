@@ -7,4 +7,4 @@ curl ${server}/transform
 
 echo ""
 
-curl -XPOST -d@test.json ${server}/transform
+curl -XPOST -H "Content-Type: application/json" -d@test.json ${server}/transform

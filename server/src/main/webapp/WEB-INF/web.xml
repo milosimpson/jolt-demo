@@ -12,6 +12,11 @@
             <param-name>javax.ws.rs.Application</param-name>
             <param-value>com.bazaarvoice.jolt.JoltDemoJerseyApp</param-value>
         </init-param>
+        <init-param>
+            <!-- This is necessary for Jersey to automatically parse application/json into Java -->
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>com.fasterxml.jackson.jaxrs.json;service</param-value>
+        </init-param>
         <!--<init-param>-->
             <!--<param-name>jersey.config.server.provider.classnames</param-name>-->
             <!--<param-value>org.glassfish.jersey.filter.LoggingFilter</param-value>-->
