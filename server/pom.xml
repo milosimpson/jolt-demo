@@ -20,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jersey.version>2.2</jersey.version>
+        <jolt.version>0.0.8</jolt.version>
     </properties>
 
     <dependencies>
@@ -60,13 +61,26 @@
 
         <!-- Provides for web.xml -->
         <!-- <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> -->
-        <!-- Google App Engine runs Servlet Version 2.5 -->
+        <!-- Google App Engine runs Servlet Version 2.5 so this comment was helpful -->
         <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core"  -->
         <dependency>
            <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+
+        <!-- Jolt -->
+        <dependency>
+            <groupId>com.bazaarvoice.jolt</groupId>
+            <artifactId>jolt-core</artifactId>
+            <version>${jolt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bazaarvoice.jolt</groupId>
+            <artifactId>json-utils</artifactId>
+            <version>${jolt.version}</version>
+        </dependency>
+
 
         <!-- Test Dependencies -->
         <dependency>

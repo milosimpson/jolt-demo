@@ -7,12 +7,12 @@
 
 
     <servlet>
-        <servlet-name>jolthello</servlet-name>
+        <servlet-name>hello</servlet-name>
         <servlet-class>com.bazaarvoice.jolt.HelloWorld</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>jolthello</servlet-name>
-        <url-pattern>/jolthello</url-pattern>
+        <servlet-name>hello</servlet-name>
+        <url-pattern>/hello</url-pattern>
     </servlet-mapping>
 
     <servlet >
@@ -31,7 +31,7 @@
 
     <servlet-mapping>
         <servlet-name>Jersey Servlet</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
+        <url-pattern>/jolt/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
