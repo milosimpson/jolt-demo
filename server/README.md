@@ -28,14 +28,14 @@ To see all the available goals for the App Engine plugin, run
 # Build and Test
 
 You can run Google App Engine from inside Intellij.
-Need to change the config to run "mvn verify" instead of its usual "Make"
+Need to change the config to run "mvn clean" and "mvn verify" instead of its usual "Make"
 
 # Deploy
 
 Do a "mvn clean install" from the top, otherwise the "${appengine.app.version}" from the "appengine-web.xml" does not get filled in.
 Deploy from inside Intellij.
-Adjust the "<appengine.app.version>" in the server pom file.
 
+Google will let your run multiple versions of the same app, which this demo will not need.
 
 # Reference
 

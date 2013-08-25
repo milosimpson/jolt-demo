@@ -5,11 +5,9 @@ Demo and Doc site for Jolt
 
 # Demo Server
 
-Google App Engine has a truly free tier, so building a small war so that people can play with
-Jolt transforms online.
+http://jolt-demo.appspot.com
 
-HA!
-http://jolt-demo.appspot.com/transform
+# Tech
 
-Deploy from inside Intellij.
+Google App Engine has a truly free tier, so building a small war so that people can play with and deploying there.
 
