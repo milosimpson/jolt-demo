@@ -33,14 +33,13 @@ public class JoltTransformServlet {
     public String transformFormEncoded( MultivaluedMap<String,String> urlEncoded)
             throws IOException
     {
-        List<String> comboList = urlEncoded.get( "combo" );
+        List<String> inputList = urlEncoded.get( "input" );
+        String inputString = inputList.get(0);
 
-        Map<String,Object> combo = JsonUtils.jsonToMap( comboList.get(0) );
+        List<String> specList = urlEncoded.get( "spec" );
+        String specString = specList.get(0);
 
-        Object spec = combo.get("spec");
-        Object input = combo.get("input");
-
-        return doTransform(spec, input);
+        return doTransform(JsonUtils.jsonToObject(specString), JsonUtils.jsonToObject(inputString));
     }
 
     @POST
@@ -59,8 +58,9 @@ public class JoltTransformServlet {
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>com.fasterxml.jackson.jaxrs.json;service</param-value>
         </init-param>
-     */
 
+        This is if you want to POST a single JSON object.  It should have two keys, "input" and "spec".
+     */
     public String transformJson( Object json ) throws IOException
     {
         if ( json instanceof Map && json != null ) {
@@ -77,11 +77,14 @@ public class JoltTransformServlet {
     }
 
 
-
     private String doTransform(Object spec, Object input) throws IOException {
+
         Chainr chainr = Chainr.fromSpec( spec );
 
         Object output = chainr.transform( input );
+
+        // TODO make output sort optional
+        output = Sortr.sortJson( output );
 
         return JsonUtils.toPrettyJsonString(output);
     }

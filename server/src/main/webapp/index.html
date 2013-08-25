@@ -28,54 +28,24 @@
 
 Here you can experiment with the Jolt Transforms without having to download and run the Java code.
 
-<!-- Old school form post here, till I can get a fancy Ajax request going. -->
-<form id="tranformForm" role="form" action="http://jolt-demo.appspot.com/transform" method="post">
+<form id="transformForm" role="form" action="/transform" method="post">
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <label for="combo">Json Input</label>
+            <label for="input">Json Input</label>
         </div>
         <div class="panel-body">
-            <textarea form="tranformForm" class="form-control" name="combo" id="combo" rows="25">
-{
-"input" : {
-"rating": {
-"primary": {
-"value": 3
-},
-"quality": {
-"value": 3
-}
-}
-},
-"spec" : [
-{
-"operation": "shift",
-"spec": {
-"rating": {
-"primary": {
-"value": "Rating"
-},
-"*": {
-"value": "SecondaryRatings.&1.Value",
-"$": "SecondaryRatings.&.Id"
-}
-}
-}
-},
-{
-"operation": "default",
-"spec": {
-"Range" : 5,
-"SecondaryRatings" : {
-"*" : {
-"Range" : 5
-}
-}
-}
-}
-]
-}
+            <textarea form="transformForm" class="form-control" name="input" id="input" rows="20">
+                {
+                    "rating": {
+                        "primary": {
+                            "value": 3
+                        },
+                        "quality": {
+                            "value": 3
+                        }
+                    }
+                }
             </textarea>
         </div>
     </div>
@@ -83,27 +53,88 @@ Here you can experiment with the Jolt Transforms without having to download and 
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <label for="jsonSpec">Jolt Spec</label>
+            <label for="spec">Jolt Spec</label>
         </div>
         <div class="panel-body">
-            <textarea form="tranformForm" class="form-control" id="jsonSpec" rows="25"></textarea>
+            <textarea form="transformForm" class="form-control" id="spec" rows="20">
+                [
+                {
+                "operation": "shift",
+                "spec": {
+                "rating": {
+                "primary": {
+                "value": "Rating"
+                },
+                "*": {
+                "value": "SecondaryRatings.&1.Value",
+                "$": "SecondaryRatings.&.Id"
+                }
+                }
+                }
+                },
+                {
+                "operation": "default",
+                "spec": {
+                "Range" : 5,
+                "SecondaryRatings" : {
+                "*" : {
+                "Range" : 5
+                }
+                }
+                }
+                }
+                ]
+
+            </textarea>
         </div>
     </div>
 
-    <button type="submit" class="btn btn-default">Process</button>
+    <button id="processButton" name="processButton" type="submit" class="btn btn-default">Process</button>
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <label for="outputJson">Transformed Json / Error Messages </label>
         </div>
         <div class="panel-body">
-            <textarea form="tranformForm" class="form-control" id="outputJson" rows="25"></textarea>
+            <textarea form="transformForm" class="form-control" id="outputJson" rows="20">
+            </textarea>
         </div>
     </div>
 
 </form>
 
 </div>  <!-- / container -->
+
+
+<!-- Script at the bottom so that we know that html elements have been loaded. -->
+<script type="text/javascript">
+
+/*
+* Attach a submit handler to the form.
+* The form should still theoretically work even w/out JavaScript.
+*/
+$("#transformForm").submit(function(event) {
+
+    // get some values from elements on the page:
+    var $form = $( this ),
+        input = $form.find( '#input' ).val(),
+        spec  = $form.find( '#spec' ).val(),
+        url   = $form.attr( 'action' );
+
+    // Send the data using post
+    var posting = $.post( url, { input : input, spec : spec } );
+
+    // Put the results in a div
+    posting.done(function( data ) {
+        var content = data ;
+        $( "#outputJson" ).empty().append( content );
+    });
+
+    // return false so that we prevent the standard form submit behavior from happening
+    return false;
+});
+
+</script>
 
 </body>
 </html>
