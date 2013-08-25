@@ -18,6 +18,8 @@
         <appengine.app.version>1</appengine.app.version>
         <appengine.target.version>1.7.5</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <jersey.version>2.2</jersey.version>
     </properties>
 
     <dependencies>
@@ -37,6 +39,33 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- Core Jersey -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <!-- Provides for web.xml -->
+        <!-- <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> -->
+        <!-- Google App Engine runs Servlet Version 2.5 -->
+        <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core"  -->
+        <dependency>
+           <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>${jersey.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->

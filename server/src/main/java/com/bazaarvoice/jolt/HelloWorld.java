@@ -8,6 +8,6 @@ public class HelloWorld extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         resp.setContentType("text/plain");
-        resp.getWriter().println("Hello, jolt world");
+        resp.getWriter().println("Hello, jolt world Pants");
     }
 }

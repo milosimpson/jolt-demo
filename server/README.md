@@ -25,5 +25,16 @@ To see all the available goals for the App Engine plugin, run
 
     mvn help:describe -Dplugin=appengine
 
+# Reference
 
+https://developers.google.com/appengine/docs/java/tools/maven
+
+http://jersey.java.net/
+
+http://stackoverflow.com/questions/2072295/how-to-deploy-a-jax-rs-application
+
+http://stackoverflow.com/questions/18268827/how-do-i-get-jersey-2-2-jax-rs-to-generate-log-output-including-json-request
+
+Jboss guy article
+http://architects.dzone.com/articles/putting-java-rest
 
