@@ -33,7 +33,6 @@
 
     </script>
 
-
 </head>
 <body>
 
@@ -165,8 +164,11 @@ $("#transformForm").submit(function(event) {
 
     var inputValid = validateInput();
     var specValid = validateSpec();
-    if ( ! inputValid && ! specValid ) {
-        return;
+    if ( ! inputValid || ! specValid ) {
+        $( "#outputJson" ).empty().append( "Problem with input or spec JSON." );
+
+        // return false so that we prevent the standard form submit behavior from happening
+        return false;
     }
 
     // get some values from elements on the page:
