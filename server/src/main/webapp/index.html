@@ -19,6 +19,21 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
+    <script type="text/javascript">
+
+        function parseJson( json ) {
+            try {
+                var theJson = jQuery.parseJSON( json );
+                return theJson;
+            }
+            catch (e) {
+                return false;
+            }
+        }
+
+    </script>
+
+
 </head>
 <body>
 
@@ -30,19 +45,20 @@ Here you can experiment with the Jolt Transforms without having to download and 
 
 <form id="transformForm" role="form" action="/transform" method="post">
 
-    <div class="panel panel-default">
+    <div id="inputPanel" class="panel panel-default">
         <div class="panel-heading">
             <label for="input">Json Input</label>
+            <button type="button" id="inputValidateButton" class="btn btn-default">Validate Json</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" name="input" id="input" rows="20">
                 {
                     "rating": {
                         "primary": {
-                            "value": 3
+                            "value": 5
                         },
                         "quality": {
-                            "value": 3
+                            "value": 4
                         }
                     }
                 }
@@ -51,9 +67,10 @@ Here you can experiment with the Jolt Transforms without having to download and 
     </div>
 
 
-    <div class="panel panel-default">
+    <div id="specPanel" class="panel panel-default">
         <div class="panel-heading">
             <label for="spec">Jolt Spec</label>
+            <button type="button" id="specValidateButton" class="btn btn-default">Validate Json</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="spec" rows="20">
@@ -89,9 +106,9 @@ Here you can experiment with the Jolt Transforms without having to download and 
         </div>
     </div>
 
-    <button id="processButton" name="processButton" type="submit" class="btn btn-default">Process</button>
+    <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
 
-    <div class="panel panel-default">
+    <div id="outputPanel" class="panel panel-default">
         <div class="panel-heading">
             <label for="outputJson">Transformed Json / Error Messages </label>
         </div>
@@ -109,17 +126,54 @@ Here you can experiment with the Jolt Transforms without having to download and 
 <!-- Script at the bottom so that we know that html elements have been loaded. -->
 <script type="text/javascript">
 
+function validateInput() {
+
+    var theJson = parseJson( $( "#input" ).val() );
+    if ( theJson ) {
+        $("#inputPanel").toggleClass("panel-danger", false);
+        $("#input").empty().append( JSON.stringify( theJson, null, '    ' ) );
+        return true;
+    }
+    else {
+        $("#inputPanel").toggleClass("panel-danger", true);
+        return false;
+    }
+}
+
+$("#inputValidateButton").click( validateInput );
+
+function validateSpec() {
+    var theJson = parseJson( $( "#spec" ).val() );
+    if ( theJson ) {
+        $("#specPanel").toggleClass("panel-danger", false);
+        $("#spec").empty().append( JSON.stringify( theJson, null, '    ' ) );
+        return true;
+    }
+    else {
+        $("#specPanel").toggleClass("panel-danger", true);
+    }
+    return false;
+}
+
+$("#specValidateButton").click( validateSpec );
+
 /*
-* Attach a submit handler to the form.
-* The form should still theoretically work even w/out JavaScript.
-*/
+ * Attach a submit handler to the form.
+ * The form should still theoretically work even w/out JavaScript.
+ */
 $("#transformForm").submit(function(event) {
+
+    var inputValid = validateInput();
+    var specValid = validateSpec();
+    if ( ! inputValid && ! specValid ) {
+        return;
+    }
 
     // get some values from elements on the page:
     var $form = $( this ),
-        input = $form.find( '#input' ).val(),
-        spec  = $form.find( '#spec' ).val(),
-        url   = $form.attr( 'action' );
+            input = $form.find( '#input' ).val(),
+            spec  = $form.find( '#spec' ).val(),
+            url   = $form.attr( 'action' );
 
     // Send the data using post
     var posting = $.post( url, { input : input, spec : spec } );
@@ -133,6 +187,7 @@ $("#transformForm").submit(function(event) {
     // return false so that we prevent the standard form submit behavior from happening
     return false;
 });
+
 
 </script>
 
