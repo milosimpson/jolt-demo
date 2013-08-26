@@ -127,14 +127,16 @@ Here you can experiment with the Jolt Transforms without having to download and 
 
 function validateInput() {
 
-    var theJson = parseJson( $( "#input" ).val() );
+    var inputTextArea = $( "#input" );
+    var inputPanel = $("#inputPanel");
+    var theJson = parseJson( inputTextArea.val() );
     if ( theJson ) {
-        $("#inputPanel").toggleClass("panel-danger", false);
-        $("#input").empty().append( JSON.stringify( theJson, null, '    ' ) );
+        inputPanel.toggleClass("panel-danger", false);
+        inputTextArea.val( JSON.stringify( theJson, null, '    ' ) );
         return true;
     }
     else {
-        $("#inputPanel").toggleClass("panel-danger", true);
+        inputPanel.toggleClass("panel-danger", true);
         return false;
     }
 }
@@ -142,14 +144,18 @@ function validateInput() {
 $("#inputValidateButton").click( validateInput );
 
 function validateSpec() {
-    var theJson = parseJson( $( "#spec" ).val() );
+
+    var specTextArea = $( "#spec" );
+    var specPanel = $("#specPanel");
+
+    var theJson = parseJson( specTextArea.val() );
     if ( theJson ) {
-        $("#specPanel").toggleClass("panel-danger", false);
-        $("#spec").empty().append( JSON.stringify( theJson, null, '    ' ) );
+        specPanel.toggleClass("panel-danger", false);
+        specTextArea.val( JSON.stringify( theJson, null, '    ' ) );
         return true;
     }
     else {
-        $("#specPanel").toggleClass("panel-danger", true);
+        specPanel.toggleClass("panel-danger", true);
     }
     return false;
 }
@@ -165,7 +171,7 @@ $("#transformForm").submit(function(event) {
     var inputValid = validateInput();
     var specValid = validateSpec();
     if ( ! inputValid || ! specValid ) {
-        $( "#outputJson" ).empty().append( "Problem with input or spec JSON." );
+        $( "#outputJson" ).val( "Problem with input or spec JSON." );
 
         // return false so that we prevent the standard form submit behavior from happening
         return false;
@@ -183,7 +189,7 @@ $("#transformForm").submit(function(event) {
     // Put the results in a div
     posting.done(function( data ) {
         var content = data ;
-        $( "#outputJson" ).empty().append( content );
+        $( "#outputJson" ).val( content );
     });
 
     // return false so that we prevent the standard form submit behavior from happening
