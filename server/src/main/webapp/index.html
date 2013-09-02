@@ -38,16 +38,22 @@
 
 <div class="container">
 
+<div class="row"> <!-- row 1 -->
+<div class="col-lg-12">
 <h1>Jolt Transform Demo</h1>
-
 Here you can experiment with the Jolt Transforms without having to download and run the Java code.
+</div>
+</div> <!-- row 1 -->
 
 <form id="transformForm" role="form" action="/transform" method="post">
 
-    <div id="inputPanel" class="panel panel-default">
+<div class="row"> <!-- row 2 -->
+<div class="col-lg-4 col-md-6 col-sm-12">
+
+        <div id="inputPanel" class="panel panel-default">
         <div class="panel-heading">
             <label for="input">Json Input</label>
-            <button type="button" id="inputValidateButton" class="btn btn-default">Validate Json</button>
+            <button type="button" id="inputValidateButton" class="btn btn-default">Validate</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" name="input" id="input" rows="20">
@@ -64,12 +70,14 @@ Here you can experiment with the Jolt Transforms without having to download and 
             </textarea>
         </div>
     </div>
+</div> <!-- column 1 -->
 
+<div class="col-lg-4 col-md-6 col-sm-12">
 
     <div id="specPanel" class="panel panel-default">
         <div class="panel-heading">
             <label for="spec">Jolt Spec</label>
-            <button type="button" id="specValidateButton" class="btn btn-default">Validate Json</button>
+            <button type="button" id="specValidateButton" class="btn btn-default">Validate</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="spec" rows="20">
@@ -104,18 +112,23 @@ Here you can experiment with the Jolt Transforms without having to download and 
             </textarea>
         </div>
     </div>
+</div> <!-- column 2 -->
 
-    <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
+<div class="col-lg-4 col-md-6 col-sm-12">
 
     <div id="outputPanel" class="panel panel-default">
+
         <div class="panel-heading">
-            <label for="outputJson">Transformed Json / Error Messages </label>
+            <label for="outputJson">Output n Errors</label>
+            <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="outputJson" rows="20">
             </textarea>
         </div>
     </div>
+</div> <!-- column 3 -->
+</div> <!-- row 2 -->
 
 </form>
 
