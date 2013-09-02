@@ -14,7 +14,7 @@
     <link rel="stylesheet" media="screen" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+    <!--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">-->
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -33,10 +33,23 @@
 
     </script>
 
+    <style>
+        @media (min-width: 600px) {
+                body {
+                    padding-right:25px;
+                    padding-left:25px;
+                }
+            }
+        @media (max-width: 599px) {
+                body {
+                    padding-right:2px;
+                    padding-left:2px;
+                }
+            }
+    </style>
+
 </head>
 <body>
-
-<div class="container">
 
 <div class="row"> <!-- row 1 -->
 <div class="col-lg-12">
@@ -119,7 +132,7 @@ Here you can experiment with the Jolt Transforms without having to download and 
     <div id="outputPanel" class="panel panel-default">
 
         <div class="panel-heading">
-            <label for="outputJson">Output n Errors</label>
+            <label for="outputJson">Output / Errors</label>
             <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
         </div>
         <div class="panel-body">
@@ -131,8 +144,6 @@ Here you can experiment with the Jolt Transforms without having to download and 
 </div> <!-- row 2 -->
 
 </form>
-
-</div>  <!-- / container -->
 
 
 <!-- Script at the bottom so that we know that html elements have been loaded. -->
