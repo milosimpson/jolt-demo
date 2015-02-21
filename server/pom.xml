@@ -16,14 +16,14 @@
 
     <properties>
         <!-- Bump this when uploading new versions to Google -->
-        <appengine.app.version>1</appengine.app.version>
+        <appengine.app.version>2</appengine.app.version>
 
 
-        <appengine.target.version>1.7.5</appengine.target.version>
+        <appengine.target.version>1.9.18</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jersey.version>2.2</jersey.version>
-        <jolt.version>0.0.10</jolt.version>
+        <jolt.version>0.0.14</jolt.version>
     </properties>
 
     <dependencies>
@@ -143,5 +143,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
