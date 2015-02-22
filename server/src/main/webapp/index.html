@@ -70,16 +70,16 @@ Here you can experiment with the Jolt Transforms without having to download and 
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" name="input" id="input" rows="20">
-                {
-                    "rating": {
-                        "primary": {
-                            "value": 5
-                        },
-                        "quality": {
-                            "value": 4
-                        }
-                    }
-                }
+{
+    "rating": {
+        "primary": {
+            "value": 5
+        },
+        "quality": {
+            "value": 4
+        }
+    }
+}
             </textarea>
         </div>
     </div>
@@ -94,34 +94,33 @@ Here you can experiment with the Jolt Transforms without having to download and 
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="spec" rows="20">
-                [
-                {
-                "operation": "shift",
-                "spec": {
-                "rating": {
+[
+    {
+        "operation": "shift",
+        "spec": {
+            "rating": {
                 "primary": {
-                "value": "Rating"
+                    "value": "Rating"
                 },
                 "*": {
-                "value": "SecondaryRatings.&1.Value",
-                "$": "SecondaryRatings.&.Id"
+                    "value": "SecondaryRatings.&1.Value",
+                    "$": "SecondaryRatings.&.Id"
                 }
+            }
+        }
+    },
+    {
+        "operation": "default",
+        "spec": {
+            "Range": 5,
+            "SecondaryRatings": {
+                "*": {
+                    "Range": 5
                 }
-                }
-                },
-                {
-                "operation": "default",
-                "spec": {
-                "Range" : 5,
-                "SecondaryRatings" : {
-                "*" : {
-                "Range" : 5
-                }
-                }
-                }
-                }
-                ]
-
+            }
+        }
+    }
+]
             </textarea>
         </div>
     </div>
@@ -143,20 +142,52 @@ Here you can experiment with the Jolt Transforms without having to download and 
 </div> <!-- column 3 -->
 </div> <!-- row 2 -->
 
+<div class="row"> <!-- row 3 -->
+    <p>Thanks to <a href="https://cloud.google.com/appengine/">Google App Engine</a> for having a free tier and </p>
+    <p><a href="http://codemirror.net/">CodeMirror</a> for the cool text areas. </p>
+</div>
+
 </form>
 
+<!-- Load up the CodeMirror JavaScript and apply it to our text areas. -->
+<script src="codemirror-5.0/lib/codemirror.js"></script>
+<link rel="stylesheet" href="../codemirror-5.0/lib/codemirror.css">
+<script src="codemirror-5.0/mode/javascript/javascript.js"></script>
 
 <!-- Script at the bottom so that we know that html elements have been loaded. -->
 <script type="text/javascript">
 
+var codeMirrorOptions =
+{
+    "mode": {
+        name: "javascript",
+        json: true
+    },
+    "theme" : "neat",
+    "tabSize" : 2,
+    "indentUnit" : 2,
+    "smartIndent" : true,
+    "lineNumbers" : true
+};
+
+// #input finds an html element by Id, then [0] gets the first thing in the returned list
+var inputCodeMirror   = CodeMirror.fromTextArea( $( "#input" )[0], codeMirrorOptions );
+var specCodeMirror    = CodeMirror.fromTextArea( $( "#spec" )[0],  codeMirrorOptions );
+var outputCodeMirror  = CodeMirror.fromTextArea( $( "#outputJson" )[0],  codeMirrorOptions );
+
+// this is awesome, makes it so the textAreas auto size their height
+// the width is 100% which allows it to be controlled by the BootStrap logic
+inputCodeMirror.setSize( "100%", "auto");
+specCodeMirror.setSize( "100%", "auto");
+outputCodeMirror.setSize( "100%", "auto");
+
 function validateInput() {
 
-    var inputTextArea = $( "#input" );
     var inputPanel = $("#inputPanel");
-    var theJson = parseJson( inputTextArea.val() );
+    var theJson = parseJson( inputCodeMirror.getValue() );
     if ( theJson ) {
         inputPanel.toggleClass("panel-danger", false);
-        inputTextArea.val( JSON.stringify( theJson, null, '    ' ) );
+        inputCodeMirror.setValue( JSON.stringify( theJson, null, '\t' ) );
         return true;
     }
     else {
@@ -169,13 +200,12 @@ $("#inputValidateButton").click( validateInput );
 
 function validateSpec() {
 
-    var specTextArea = $( "#spec" );
     var specPanel = $("#specPanel");
 
-    var theJson = parseJson( specTextArea.val() );
+    var theJson = parseJson( specCodeMirror.getValue() );
     if ( theJson ) {
         specPanel.toggleClass("panel-danger", false);
-        specTextArea.val( JSON.stringify( theJson, null, '    ' ) );
+        specCodeMirror.setValue( JSON.stringify( theJson, null, '\t' ) );
         return true;
     }
     else {
@@ -195,7 +225,7 @@ $("#transformForm").submit(function(event) {
     var inputValid = validateInput();
     var specValid = validateSpec();
     if ( ! inputValid || ! specValid ) {
-        $( "#outputJson" ).val( "Problem with input or spec JSON." );
+        outputCodeMirror.setValue( "Problem with input or spec JSON." );
 
         // return false so that we prevent the standard form submit behavior from happening
         return false;
@@ -203,9 +233,9 @@ $("#transformForm").submit(function(event) {
 
     // get some values from elements on the page:
     var $form = $( this ),
-            input = $form.find( '#input' ).val(),
-            spec  = $form.find( '#spec' ).val(),
-            url   = $form.attr( 'action' );
+        input = inputCodeMirror.getValue(),
+        spec  = specCodeMirror.getValue(),
+        url   = $form.attr( 'action' );
 
     // Send the data using post
     var posting = $.post( url, { input : input, spec : spec } );
@@ -213,13 +243,16 @@ $("#transformForm").submit(function(event) {
     // Put the results in a div
     posting.done(function( data ) {
         var content = data ;
-        $( "#outputJson" ).val( content );
+        outputCodeMirror.setValue( content );
     });
 
     // return false so that we prevent the standard form submit behavior from happening
     return false;
 });
 
+// Validate the two default inputs, so that they are pretty.
+validateInput();
+validateSpec();
 
 </script>
 

@@ -23,14 +23,21 @@ public class JoltTransformServlet {
     public String transformFormEncoded( MultivaluedMap<String,String> urlEncoded)
             throws IOException
     {
-        List<String> inputList = urlEncoded.get( "input" );
-        String inputString = inputList.get(0);
 
-        List<String> specList = urlEncoded.get( "spec" );
-        String specString = specList.get(0);
+        String inputString, specString;
 
-        Object spec;
-        Object input;
+        try {
+            List<String> inputList = urlEncoded.get( "input" );
+            inputString = inputList.get( 0 );
+
+            List<String> specList = urlEncoded.get( "spec" );
+            specString = specList.get( 0 );
+        }
+        catch ( Exception e ) {
+            return  "Could not url-decode the inputs.\n";
+        }
+
+        Object input, spec;
 
         try {
             input = JsonUtils.jsonToObject( inputString );
