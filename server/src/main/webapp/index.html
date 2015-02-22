@@ -255,7 +255,7 @@ $("#transformForm").submit(function(event) {
         spec  = specCodeMirror.getValue(),
         url   = $form.attr( 'action' );
 
-    outputCodeMirror.setValue( "Sending 'intut' and 'spec' to the server.\n\nIt is a free tier on Google App Engine,\nso it may be asleep." );
+    outputCodeMirror.setValue( "Sending 'input' and 'spec' to the server.\n\nIt is a free tier on Google App Engine,\nso it may be asleep." );
 
     // Send the data using post
     var posting = $.post( url, { input : input, spec : spec } );
