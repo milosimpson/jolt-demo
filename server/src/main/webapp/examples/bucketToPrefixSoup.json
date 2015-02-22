@@ -1,0 +1,22 @@
+{
+    "input" : {
+        "Rating": 1,
+        "SecondaryRatings":{
+            "Design": 4,
+            "Price": 2,
+            "RatingDimension3": 1
+        }
+    },
+    "spec" : [
+        {
+            "operation": "shift",
+            "spec": {
+                "Rating": "rating-primary",
+
+                "SecondaryRatings": {
+                    "*": "rating-&"
+                }
+            }
+        }
+    ]
+}

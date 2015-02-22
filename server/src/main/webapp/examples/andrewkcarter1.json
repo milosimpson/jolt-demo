@@ -1,0 +1,46 @@
+{
+    "input": {
+        "entities": [
+            {
+                "type": "alpha",
+                "data": "foo"
+            },
+            {
+                "type": "beta",
+                "data": "bar"
+            },
+            {
+                "type": "alpha",
+                "data": "zoo"
+            }
+        ]
+    },
+    "spec": [
+        {
+            "operation": "shift",
+            "spec": {
+                "entities": {
+                    "*" : "@type[]"
+                }
+            }
+        }
+    ],
+    "expected": {
+        "alpha":[
+            {
+                "type":"alpha",
+                "data":"foo"
+            },
+            {
+                "type":"alpha",
+                "data":"zoo"
+            }
+        ],
+        "beta":[
+            {
+                "type":"beta",
+                "data":"bar"
+            }
+        ]
+    }
+}

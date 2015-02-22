@@ -1,0 +1,18 @@
+{
+    "input": {
+        "data" : {
+            "clientId": "1234",
+            "clientName": "Acme"
+        }
+    },
+    "spec": [
+        {
+            "operation": "shift",
+            "spec": {
+                "data": {
+                    "@clientName": "@clientId"
+                }
+            }
+        }
+    ]
+}

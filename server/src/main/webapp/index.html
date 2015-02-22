@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 
-<!-- Use the cdn hosted bootstrap -->
+    <!-- Use the cdn hosted bootstrap -->
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -18,20 +18,6 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript">
-
-        function parseJson( json ) {
-            try {
-                var theJson = jQuery.parseJSON( json );
-                return theJson;
-            }
-            catch (e) {
-                return false;
-            }
-        }
-
-    </script>
 
     <style>
         /* This makes the panels have some padding from the edge of the screen. */
@@ -72,20 +58,10 @@ Here you can experiment with the Jolt Transforms without having to download and 
         <div id="inputPanel" class="panel panel-default">
         <div class="panel-heading">
             <label for="input">Json Input</label>
-            <button type="button" id="inputValidateButton" class="btn btn-default">Validate</button>
+            <button type="button" id="inputValidateButton" class="btn btn-default">JSON Validate</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" name="input" id="input" rows="20">
-{
-    "rating": {
-        "primary": {
-            "value": 5
-        },
-        "quality": {
-            "value": 4
-        }
-    }
-}
             </textarea>
         </div>
     </div>
@@ -96,37 +72,10 @@ Here you can experiment with the Jolt Transforms without having to download and 
     <div id="specPanel" class="panel panel-default">
         <div class="panel-heading">
             <label for="spec">Jolt Spec</label>
-            <button type="button" id="specValidateButton" class="btn btn-default">Validate</button>
+            <button type="button" id="specValidateButton" class="btn btn-default">JSON Validate</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="spec" rows="20">
-[
-    {
-        "operation": "shift",
-        "spec": {
-            "rating": {
-                "primary": {
-                    "value": "Rating"
-                },
-                "*": {
-                    "value": "SecondaryRatings.&1.Value",
-                    "$": "SecondaryRatings.&.Id"
-                }
-            }
-        }
-    },
-    {
-        "operation": "default",
-        "spec": {
-            "Range": 5,
-            "SecondaryRatings": {
-                "*": {
-                    "Range": 5
-                }
-            }
-        }
-    }
-]
             </textarea>
         </div>
     </div>
@@ -149,8 +98,44 @@ Here you can experiment with the Jolt Transforms without having to download and 
 </div> <!-- row 2 -->
 
 <div class="row"> <!-- row 3 -->
-    <p>Thanks to <a href="https://cloud.google.com/appengine/">Google App Engine</a> for having a free tier and </p>
-    <p><a href="http://codemirror.net/">CodeMirror</a> for the cool text areas. </p>
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+
+        <div id="examplesPanel" class="panel panel-default">
+            <div class="panel-heading">
+                <label for="examples">Examples</label>
+            </div>
+            <div class="panel-body" id="examples">
+                <ol>
+                    <li><a href="#" onclick="loadExample( 'inception' ); return false;">Inception</a></li>
+                    <li><a href="#" onclick="loadExample( 'bucketToPrefixSoup' ); return false;">Convert nested data, to 'prefix soup'.</a></li>
+                    <li><a href="#" onclick="loadExample( 'prefixSoupToBuckets' ); return false;">Convert 'prefix soup', to nested data.</a></li>
+                    <li><a href="#" onclick="loadExample( 'listKeys' ); return false;">Grab LHS key values.</a></li>
+                    <li><a href="#" onclick="loadExample( 'mapToList' ); return false;">Map to list.</a></li>
+                    <li><a href="#" onclick="loadExample( 'inputArrayToPrefix' ); return false;">List to Map.</a></li>
+                    <li><a href="#" onclick="loadExample( 'hashDefault' ); return false;">On a match, apply a String default.</a></li>
+                    <li><a href="#" onclick="loadExample( 'transposeSimple1' ); return false;">Base case simple Transpose1.</a></li>
+                    <li><a href="#" onclick="loadExample( 'transposeSimple2' ); return false;">Base case simple Transpose2.</a></li>
+                    <li><a href="#" onclick="loadExample( 'ritwickgupta' ); return false;">Transpose data in an Array.</a></li>
+                    <li><a href="#" onclick="loadExample( 'andrewkcarter1' ); return false;">Bucket data from an Array, based on a leaf level value.</a></li>
+                    <li><a href="#" onclick="loadExample( 'andrewkcarter2' ); return false;">Filter data from an Array, based on a leaf level value.</a></li>
+                </ol>
+            </div>
+        </div>
+    </div> <!-- row 3 column 1 -->
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+
+        <div id="thanksPanel" class="panel panel-default">
+            <div class="panel-heading">
+                <label for="thanks">Thanks To</label>
+            </div>
+            <div class="panel-body" id="thanks">
+                <p>&nbsp;<a href="https://cloud.google.com/appengine/">Google App Engine</a> for having a free tier, and </p>
+                <p>&nbsp;<a href="http://codemirror.net/">CodeMirror</a> for the cool text areas. </p>
+            </div>
+        </div>
+    </div> <!-- row 3 column 2 -->
 </div>
 
 </form>
@@ -198,6 +183,18 @@ var outputCodeMirror  = CodeMirror.fromTextArea( $( "#outputJson" )[0],  codeMir
 inputCodeMirror.setSize( "100%", "auto");
 specCodeMirror.setSize( "100%", "auto");
 outputCodeMirror.setSize( "100%", "auto");
+
+
+// Poor man's Json Validation
+function parseJson( json ) {
+    try {
+        var theJson = jQuery.parseJSON( json );
+        return theJson;
+    }
+    catch (e) {
+        return false;
+    }
+}
 
 function validateInput() {
 
@@ -270,9 +267,16 @@ $("#transformForm").submit(function(event) {
     return false;
 });
 
-// Validate the two default inputs, so that they are pretty.
-validateInput();
-validateSpec();
+function loadExample( exampleName ) {
+
+    $.getJSON( "examples/" + exampleName + ".json", function( data ) {
+        inputCodeMirror. setValue( JSON.stringify( data.input, null, '\t' ) );
+        specCodeMirror.  setValue( JSON.stringify( data.spec,  null, '\t' ) );
+        outputCodeMirror.setValue( "" );
+    });
+}
+
+loadExample( "inception" );
 
 </script>
 

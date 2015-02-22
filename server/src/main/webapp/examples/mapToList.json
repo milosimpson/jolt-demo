@@ -1,0 +1,21 @@
+{
+    "input": {
+        "ratings": {
+            "primary": 5,
+            "quality": 4
+        }
+    },
+    "spec": [
+        {
+            "operation": "shift",
+            "spec": {
+                "ratings": {
+                    "*": {
+                        "$": "Ratings[#2].Name",
+                        "@": "Ratings[#2].Value"
+                    }
+                }
+            }
+        }
+    ]
+}
