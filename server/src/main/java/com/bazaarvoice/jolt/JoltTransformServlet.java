@@ -1,5 +1,7 @@
 package com.bazaarvoice.jolt;
 
+import com.bazaarvoice.jolt.exception.JoltException;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -15,19 +17,7 @@ public class JoltTransformServlet {
         return "Pong";
     }
 
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public String transformPlain( String comboStr )
-            throws IOException
-    {
-        Map<String,Object> combo = JsonUtils.jsonToMap(comboStr);
-
-        Object spec = combo.get("spec");
-        Object input = combo.get("input");
-
-        return doTransform(spec, input);
-    }
-
+    // THIS IS THE METHOD THAT THE WEBPAGE ACTUALLY CALLS
     @POST
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public String transformFormEncoded( MultivaluedMap<String,String> urlEncoded)
@@ -39,9 +29,43 @@ public class JoltTransformServlet {
         List<String> specList = urlEncoded.get( "spec" );
         String specString = specList.get(0);
 
-        return doTransform(JsonUtils.jsonToObject(specString), JsonUtils.jsonToObject(inputString));
+        Object spec;
+        Object input;
+
+        try {
+            input = JsonUtils.jsonToObject( inputString );
+        }
+        catch ( Exception e ) {
+            return  "Could not parse the 'input' JSON.\n";
+        }
+
+        try {
+            spec = JsonUtils.jsonToObject( specString );
+        }
+        catch ( Exception e ) {
+            return "Could not parse the 'spec' JSON.\n";
+        }
+
+        return doTransform( input, spec );
     }
 
+
+    // THIS IS A DECOY / The demo site does not call this
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String transformPlain( String comboStr )
+            throws IOException
+    {
+        Map<String,Object> combo = JsonUtils.jsonToMap(comboStr);
+
+        Object spec = combo.get("spec");
+        Object input = combo.get("input");
+
+        return doTransform( input, spec );
+    }
+
+
+    // THIS IS A DECOY / The demo site does not call this
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     /*
@@ -69,7 +93,7 @@ public class JoltTransformServlet {
             Object spec = combo.get("spec");
             Object input = combo.get("input");
 
-            return doTransform(spec, input);
+            return doTransform( input, spec );
         }
         else {
             return "Could not parse the json.";
@@ -77,15 +101,36 @@ public class JoltTransformServlet {
     }
 
 
-    private String doTransform(Object spec, Object input) throws IOException {
+    private String doTransform( Object input, Object spec ) throws IOException {
 
-        Chainr chainr = Chainr.fromSpec( spec );
+        try {
+            Chainr chainr = Chainr.fromSpec( spec );
 
-        Object output = chainr.transform( input );
+            Object output = chainr.transform( input );
 
-        // TODO make output sort optional
-        output = Sortr.sortJson( output );
+            // TODO make output sort optional
+            output = Sortr.sortJson( output );
 
-        return JsonUtils.toPrettyJsonString(output);
+            return JsonUtils.toPrettyJsonString( output );
+        }
+        catch ( Exception e ) {
+
+            StringBuilder sb = new StringBuilder();
+            sb.append( "Error running the Transform.\n\n" );
+
+            // Walk up the stackTrace printing the message for any JoltExceptions.
+            Throwable exception = e;
+            do {
+                if ( exception instanceof JoltException ) {
+                    sb.append( exception.getMessage() );
+                    sb.append( "\n\n");
+                }
+
+                exception = exception.getCause();
+            }
+            while( exception != null );
+
+            return sb.toString();
+        }
     }
 }

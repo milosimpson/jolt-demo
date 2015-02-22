@@ -15,8 +15,8 @@
     </parent>
 
     <properties>
-        <!-- Bump this when uploading new versions to Google -->
-        <appengine.app.version>2</appengine.app.version>
+        <!-- Supposed to bump this when uploading new versions to Google, but it does not work. -->
+        <appengine.app.version>1</appengine.app.version>
 
 
         <appengine.target.version>1.9.18</appengine.target.version>
