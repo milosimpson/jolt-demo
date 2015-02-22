@@ -149,10 +149,20 @@ Here you can experiment with the Jolt Transforms without having to download and 
 
 </form>
 
-<!-- Load up the CodeMirror JavaScript and apply it to our text areas. -->
+<!-- Load up the Core CodeMirror JavaScript and CSSs. -->
 <script src="codemirror-5.0/lib/codemirror.js"></script>
-<link rel="stylesheet" href="../codemirror-5.0/lib/codemirror.css">
 <script src="codemirror-5.0/mode/javascript/javascript.js"></script>
+<link rel="stylesheet" href="../codemirror-5.0/lib/codemirror.css">
+<link rel="stylesheet" href="../codemirror-5.0/theme/eclipse.css">
+
+<!-- Load up the Lint stuff : This will show nice red errors on JSON mis-format. -->
+<script src="../codemirror-5.0/addon/lint/lint.js"></script>  <!-- core lib -->
+<script src="https://rawgithub.com/zaach/jsonlint/f5cb6e7e98cbc3d4c8309c7ecd595acf8de7aa23/lib/jsonlint.js"></script>  <!-- version 1.6.2 -->
+<script src="../codemirror-5.0/addon/lint/json-lint.js"></script>  <!-- Wrapper for the zaach/jsonlint lib-->
+<link rel="stylesheet" href="../codemirror-5.0/addon/lint/lint.css">
+
+<!-- Load up the extra goodies : MatchBrackets highlights opening and closing { } -->
+<script src="../codemirror-5.0/addon/edit/matchbrackets.js"></script>
 
 <!-- Script at the bottom so that we know that html elements have been loaded. -->
 <script type="text/javascript">
@@ -163,11 +173,13 @@ var codeMirrorOptions =
         name: "javascript",
         json: true
     },
-    "theme" : "neat",
+    "theme" : "eclipse",
     "tabSize" : 2,
     "indentUnit" : 2,
     "smartIndent" : true,
-    "lineNumbers" : true
+    "lineNumbers" : true,
+    "lint" : true,
+    "matchBrackets": true
 };
 
 // #input finds an html element by Id, then [0] gets the first thing in the returned list
