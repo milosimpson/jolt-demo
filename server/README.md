@@ -21,7 +21,7 @@ To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/app
 
     mvn appengine:devserver
     # To see the base hello world servlet
-    http://localhost:8080/jolthello
+    http://localhost:8080
 
 For further information, consult the [Java App Engine](https://developers.google.com/appengine/docs/java/overview) documentation.
 

@@ -19,11 +19,11 @@
         <appengine.app.version>1</appengine.app.version>
 
 
-        <appengine.target.version>1.9.18</appengine.target.version>
+        <appengine.target.version>1.9.19</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jersey.version>2.2</jersey.version>
-        <jolt.version>0.0.14</jolt.version>
+        <jolt.version>0.0.16</jolt.version>
     </properties>
 
     <dependencies>
