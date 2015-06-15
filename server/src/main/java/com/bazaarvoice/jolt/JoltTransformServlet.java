@@ -25,6 +25,7 @@ public class JoltTransformServlet {
     {
 
         String inputString, specString;
+        Boolean sort = Boolean.TRUE;
 
         try {
             List<String> inputList = urlEncoded.get( "input" );
@@ -32,6 +33,9 @@ public class JoltTransformServlet {
 
             List<String> specList = urlEncoded.get( "spec" );
             specString = specList.get( 0 );
+
+            List<String> sortList = urlEncoded.get( "sort" );
+            sort = Boolean.valueOf( sortList.get( 0 ) );
         }
         catch ( Exception e ) {
             return  "Could not url-decode the inputs.\n";
@@ -53,7 +57,7 @@ public class JoltTransformServlet {
             return "Could not parse the 'spec' JSON.\n";
         }
 
-        return doTransform( input, spec );
+        return doTransform( input, spec, sort );
     }
 
 
@@ -68,7 +72,7 @@ public class JoltTransformServlet {
         Object spec = combo.get("spec");
         Object input = combo.get("input");
 
-        return doTransform( input, spec );
+        return doTransform( input, spec, false );
     }
 
 
@@ -100,7 +104,7 @@ public class JoltTransformServlet {
             Object spec = combo.get("spec");
             Object input = combo.get("input");
 
-            return doTransform( input, spec );
+            return doTransform( input, spec, false );
         }
         else {
             return "Could not parse the json.";
@@ -108,15 +112,16 @@ public class JoltTransformServlet {
     }
 
 
-    private String doTransform( Object input, Object spec ) throws IOException {
+    private String doTransform( Object input, Object spec, boolean doSort ) throws IOException {
 
         try {
             Chainr chainr = Chainr.fromSpec( spec );
 
             Object output = chainr.transform( input );
 
-            // TODO make output sort optional
-            output = Sortr.sortJson( output );
+            if ( doSort ) {
+                output = Sortr.sortJson( output );
+            }
 
             return JsonUtils.toPrettyJsonString( output );
         }

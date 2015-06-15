@@ -88,6 +88,8 @@ Here you can experiment with the Jolt Transforms without having to download and 
         <div class="panel-heading">
             <label for="outputJson">Output / Errors</label>
             <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
+            <input id=sort type="checkbox" name="sort" value="doSort" checked/>
+            <label for="sort">Sort Output?</label>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="outputJson" rows="20">
@@ -250,12 +252,13 @@ $("#transformForm").submit(function(event) {
     var $form = $( this ),
         input = inputCodeMirror.getValue(),
         spec  = specCodeMirror.getValue(),
+        sort  = $("#sort").is(":checked"),
         url   = $form.attr( 'action' );
 
     outputCodeMirror.setValue( "Sending 'input' and 'spec' to the server.\n\nIt is a free tier on Google App Engine,\nso it may be asleep." );
 
     // Send the data using post
-    var posting = $.post( url, { input : input, spec : spec } );
+    var posting = $.post( url, { input : input, spec : spec, sort : sort } );
 
     // Put the results in a div
     posting.done(function( data ) {
