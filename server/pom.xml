@@ -19,10 +19,10 @@
         <appengine.app.version>1</appengine.app.version>
 
 
-        <appengine.target.version>1.9.19</appengine.target.version>
+        <appengine.target.version>1.9.22</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <jersey.version>2.2</jersey.version>
+        <jersey.version>2.18</jersey.version>
         <jolt.version>0.0.16</jolt.version>
     </properties>
 
@@ -84,7 +84,7 @@
             <version>${jolt.version}</version>
         </dependency>
 
-        <!-- Jackson dependency not transitivley loaded from Jolt, needed for Jersey to be able to process
+        <!-- Jackson dependency not transitively loaded from Jolt, needed for Jersey to be able to process
            application/json into Java objects.  This and an entry in web.xml -->
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
