@@ -15,9 +15,6 @@ public class JoltDemoJerseyApp extends Application {
         return new HashSet<Class<?>>() {{
             // Add your resources.
             add(JoltTransformServlet.class);
-
-            // Add LoggingFilter.
-//            add(LoggingFilter.class);
         }};
     }
 }

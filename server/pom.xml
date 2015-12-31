@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jersey.version>2.18</jersey.version>
-        <jolt.version>0.0.16</jolt.version>
+        <jolt.version>0.0.18</jolt.version>
     </properties>
 
     <dependencies>
