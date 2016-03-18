@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
 
     <!-- Use the cdn hosted bootstrap -->
@@ -45,8 +45,8 @@
 
 <div class="row"> <!-- row 1 -->
 <div class="col-lg-12">
-<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.0.19">v0.0.19</a></h1>
-Here you can experiment with the Jolt Transforms without having to download and run the Java code.
+<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.0.20">v0.0.20</a></h1>
+Here you can experiment with the stock Jolt Transforms without having to download and run the Java code.
 </div>
 </div> <!-- row 1 -->
 
@@ -143,29 +143,62 @@ Here you can experiment with the Jolt Transforms without having to download and 
 </form>
 
 <!-- Load up the Core CodeMirror JavaScript and CSSs. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/mode/javascript/javascript.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/codemirror.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/theme/eclipse.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/mode/javascript/javascript.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/theme/eclipse.min.css">
 
 <!-- Load up the Lint stuff : This will show nice red errors on JSON mis-format. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/addon/lint/lint.min.js"></script>  <!-- core lib -->
-<script src="https://rawgithub.com/zaach/jsonlint/f5cb6e7e98cbc3d4c8309c7ecd595acf8de7aa23/lib/jsonlint.js"></script>  <!-- version 1.6.2 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/addon/lint/json-lint.min.js"></script>  <!-- Wrapper for the zaach/jsonlint lib-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/addon/lint/lint.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/lint.min.js"></script>  <!-- core lib -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/lint.min.css">
+
+<!--
+    FYI the way the CodeMirror lint addons work is they wrap existing lint tools like jsonLint and jsHint
+    Hence, that is why you have to load both the actual linting tool and the CodeMirror "adapter".
+-->
+<!-- JSON Lint -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/json-lint.min.js"></script>
+
+<!-- JavaScript Lint : Use it for hte Spec so that I can have comments, it is however a slightly worse lint -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.1/jshint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/javascript-lint.min.js"></script>
 
 <!-- Load up the extra goodies : MatchBrackets highlights opening and closing { } -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/edit/matchbrackets.min.js"></script>
 
 <!-- Script at the bottom so that we know that html elements have been loaded. -->
 <script type="text/javascript">
 
-var codeMirrorOptions =
+var codeMirrorOptionsInput =
 {
-    "mode": {
-        name: "javascript",
-        json: true
-    },
+    "mode": "application/json",  // Treat input as Json
+    "theme" : "eclipse",
+    "gutters": ["CodeMirror-lint-markers"],
+    "tabSize" : 2,
+    "indentUnit" : 2,
+    "smartIndent" : true,
+    "lineNumbers" : true,
+    "lint" : true,
+    "matchBrackets": true
+};
+
+var codeMirrorOptionsSpec =
+{
+    "mode": "javascript",  // Treat spec as JavaScript.  Slightly worse linting, but able to have comments.
+    "theme" : "eclipse",
+    "gutters": ["CodeMirror-lint-markers"],
+    "tabSize" : 2,
+    "indentUnit" : 2,
+    "smartIndent" : true,
+    "lineNumbers" : true,
+    "lint" : true,
+    "matchBrackets": true
+};
+
+var codeMirrorOptionsResults =
+{
+    "mode": "application/json",  // Treat the output as Json
     "theme" : "eclipse",
     "tabSize" : 2,
     "indentUnit" : 2,
@@ -176,9 +209,9 @@ var codeMirrorOptions =
 };
 
 // #input finds an html element by Id, then [0] gets the first thing in the returned list
-var inputCodeMirror   = CodeMirror.fromTextArea( $( "#input" )[0], codeMirrorOptions );
-var specCodeMirror    = CodeMirror.fromTextArea( $( "#spec" )[0],  codeMirrorOptions );
-var outputCodeMirror  = CodeMirror.fromTextArea( $( "#outputJson" )[0],  codeMirrorOptions );
+var inputCodeMirror   = CodeMirror.fromTextArea( $( "#input" )[0],      codeMirrorOptionsInput );
+var specCodeMirror    = CodeMirror.fromTextArea( $( "#spec" )[0],       codeMirrorOptionsSpec );
+var outputCodeMirror  = CodeMirror.fromTextArea( $( "#outputJson" )[0], codeMirrorOptionsResults );
 
 // this is awesome, makes it so the textAreas auto size their height
 // the width is 100% which allows it to be controlled by the BootStrap logic
@@ -282,7 +315,7 @@ function loadExample( exampleName ) {
 loadExample( "inception" );
 
 
-<!-- Base level Google Analytics, would be nice to know how many ppl use this site. -->
+<!-- Base level Google Analytics, nice to know how many people use the tool. -->
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
