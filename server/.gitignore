@@ -4,6 +4,7 @@ hotspot.log
 *.iws
 target/
 classes/
+node_modules/
 /var
 pom.xml.versionsBackup
 test-output/

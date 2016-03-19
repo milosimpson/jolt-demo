@@ -16,7 +16,7 @@
 
     <properties>
         <!-- Bump this when uploading new versions to Google, works now. -->
-        <appengine.app.version>5</appengine.app.version>
+        <appengine.app.version>6</appengine.app.version>
 
         <appengine.target.version>1.9.34</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

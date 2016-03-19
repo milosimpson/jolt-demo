@@ -133,8 +133,11 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
                 <label for="thanks">Thanks To</label>
             </div>
             <div class="panel-body" id="thanks">
-                <p>&nbsp;<a href="https://cloud.google.com/appengine/">Google App Engine</a> for having a free tier, and </p>
-                <p>&nbsp;<a href="http://codemirror.net/">CodeMirror</a> for the cool text areas. </p>
+                <p>&nbsp;<a href="https://cloud.google.com/appengine/">Google App Engine</a> for having a free tier. </p>
+                <p>&nbsp;<a href="https://codemirror.net/">CodeMirror</a> for the cool text areas. </p>
+                <p>&nbsp;<a href="http://jsbeautifier.org/">JS Beautifier</a> for the JavaScript reformatting. </p>
+                <p>&nbsp;<a href="https://github.com/kaelzhang/node-comment-json">Comment Json</a> : Json parser that supports comments. </p>
+                <p>&nbsp;<a href="http://browserify.org/">Browserify</a> : Converting node.js packages into browser usable js files. </p>
             </div>
         </div>
     </div> <!-- row 3 column 2 -->
@@ -160,12 +163,18 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/json-lint.min.js"></script>
 
-<!-- JavaScript Lint : Use it for hte Spec so that I can have comments, it is however a slightly worse lint -->
+<!-- JavaScript Lint : Use it for the Spec so that I can have comments, it is however a slightly worse lint -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.1/jshint.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/javascript-lint.min.js"></script>
 
 <!-- Load up the extra goodies : MatchBrackets highlights opening and closing { } -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/edit/matchbrackets.min.js"></script>
+
+<!-- Load the browserified node.js Json parser that allows for comments -->
+<script src="lib/browserifiedNodeJsonParser.js"></script>
+<!-- Use js-beautify to "reformat" the Spec "Json" -->
+<script src="lib/js-beautify-2016-03-18.js"></script>
+
 
 <!-- Script at the bottom so that we know that html elements have been loaded. -->
 <script type="text/javascript">
@@ -221,9 +230,16 @@ outputCodeMirror.setSize( "100%", "auto");
 
 
 // Poor man's Json Validation
-function parseJson( json ) {
+function parseJson( json, commentsAllowed ) {
     try {
-        var theJson = jQuery.parseJSON( json );
+
+        var theJson;
+        if ( commentsAllowed ) {
+            theJson = nodeJsonParser.parse(json, null, true);
+        }
+        else {
+            theJson = jQuery.parseJSON(json);
+        }
         return theJson;
     }
     catch (e) {
@@ -234,7 +250,7 @@ function parseJson( json ) {
 function validateInput() {
 
     var inputPanel = $("#inputPanel");
-    var theJson = parseJson( inputCodeMirror.getValue() );
+    var theJson = parseJson( inputCodeMirror.getValue(), false );
     if ( theJson ) {
         inputPanel.toggleClass("panel-danger", false);
         inputCodeMirror.setValue( JSON.stringify( theJson, null, '\t' ) );
@@ -252,10 +268,11 @@ function validateSpec() {
 
     var specPanel = $("#specPanel");
 
-    var theJson = parseJson( specCodeMirror.getValue() );
-    if ( theJson ) {
+    if ( parseJson( specCodeMirror.getValue(), true ) ) {
+        var theSpec = specCodeMirror.getValue();
+
         specPanel.toggleClass("panel-danger", false);
-        specCodeMirror.setValue( JSON.stringify( theJson, null, '\t' ) );
+        specCodeMirror.setValue( js_beautify( theSpec, js_beautifyOptions ) );
         return true;
     }
     else {
@@ -265,6 +282,30 @@ function validateSpec() {
 }
 
 $("#specValidateButton").click( validateSpec );
+
+var js_beautifyOptions =
+{
+    "indent_size": 2,
+    "indent_char": " ",
+    "eol": "\n",
+    "indent_level": 0,
+    "indent_with_tabs": false,
+    "preserve_newlines": false,
+    "max_preserve_newlines": 0,
+    "jslint_happy": false,
+    "space_after_anon_function": false,
+    "brace_style": "collapse-preserve-inline",  // [collapse-preserve-inline|collapse|expand|end-expand|none]
+    "keep_array_indentation": true,
+    "keep_function_indentation": false,
+    "space_before_conditional": true,
+    "break_chained_methods": false,
+    "eval_code": false,
+    "unescape_strings": false,
+    "wrap_line_length": 0,
+    "wrap_attributes": "auto",
+    "wrap_attributes_indent_size": 4,
+    "end_with_newline": true
+};
 
 /*
  * Attach a submit handler to the form.
@@ -305,6 +346,9 @@ $("#transformForm").submit(function(event) {
 
 function loadExample( exampleName ) {
 
+    // update browser address bar URL when someone clicks an example
+    location.hash = exampleName;
+
     $.getJSON( "examples/" + exampleName + ".json", function( data ) {
         inputCodeMirror. setValue( JSON.stringify( data.input, null, '\t' ) );
         specCodeMirror.  setValue( JSON.stringify( data.spec,  null, '\t' ) );
@@ -312,7 +356,15 @@ function loadExample( exampleName ) {
     });
 }
 
-loadExample( "inception" );
+// Make it so that Jolt examples are something you can grab out of the URL bar and send to other ppl.
+var hashParam = document.URL.split('#')[1];
+if ( hashParam ) {
+    loadExample( hashParam );
+}
+else {
+    // If no example was specified, default to the inception example.
+    loadExample( "inception" );
+}
 
 
 <!-- Base level Google Analytics, nice to know how many people use the tool. -->
