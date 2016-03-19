@@ -1,0 +1,17 @@
+{
+  "clientsActive": true,
+  "clients": {
+    "Acme": {
+      "clientId": "Acme",
+      "index": 1
+    },
+    "Axe": {
+      "clientId": "AXE",
+      "index": 0
+    }
+  },
+  "data": {
+    "bookId": null,
+    "bookName": "Enchiridion"
+  }
+}

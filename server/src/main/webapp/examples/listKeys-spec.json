@@ -1,0 +1,17 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "rating": {
+        // loop thru all the ratings
+        "*": {
+          // "$" is actually "$(0)" means grab the key 0 levels up the tree
+          //   and use that as the output.
+          // "ratingNames[]" means send the ouput to a ratingNames array,
+          //   even if there is only one output
+          "$": "ratingNames[]"
+        }
+      }
+    }
+  }
+]

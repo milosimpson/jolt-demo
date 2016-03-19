@@ -1,0 +1,16 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "Rating": "rating-primary",
+      //
+      // Turn all the SecondaryRatings into prefixed data
+      // like "rating-Design" : 4
+      "SecondaryRatings": {
+        // the "&" in "rating-&" means go up the tree 0 levels,
+        // grab what is ther and subtitute it in
+        "*": "rating-&"
+      }
+    }
+  }
+]

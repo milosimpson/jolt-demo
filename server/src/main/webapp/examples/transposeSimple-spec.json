@@ -1,0 +1,15 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "data": {
+        // Grab the value of clientName, and write it to
+        //  bookMap. whatever is at clientId
+        "@clientName": "bookMap.@clientId"
+        //
+        // Note this also does the same thing.
+        // "clientName": "bookMap.@(1,clientId)"
+      }
+    }
+  }
+]

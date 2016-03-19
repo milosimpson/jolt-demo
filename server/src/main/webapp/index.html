@@ -116,8 +116,8 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
                     <li><a href="#" onclick="loadExample( 'mapToList' ); return false;">Map to list.</a></li>
                     <li><a href="#" onclick="loadExample( 'inputArrayToPrefix' ); return false;">List to Map.</a></li>
                     <li><a href="#" onclick="loadExample( 'hashDefault' ); return false;">On a match, apply a String default.</a></li>
-                    <li><a href="#" onclick="loadExample( 'transposeSimple1' ); return false;">Base case simple Transpose1.</a></li>
-                    <li><a href="#" onclick="loadExample( 'transposeSimple2' ); return false;">Base case simple Transpose2.</a></li>
+                    <li><a href="#" onclick="loadExample( 'transposeSimple' ); return false;">Base case simple Transpose.</a></li>
+                    <li><a href="#" onclick="loadExample( 'transposeComplex' ); return false;">Complex / nested Transpose.</a></li>
                     <li><a href="#" onclick="loadExample( 'ritwickgupta' ); return false;">Transpose data in an Array.</a></li>
                     <li><a href="#" onclick="loadExample( 'andrewkcarter1' ); return false;">Bucket data from an Array, based on a leaf level value.</a></li>
                     <li><a href="#" onclick="loadExample( 'andrewkcarter2' ); return false;">Filter data from an Array, based on a leaf level value.</a></li>
@@ -349,11 +349,23 @@ function loadExample( exampleName ) {
     // update browser address bar URL when someone clicks an example
     location.hash = exampleName;
 
-    $.getJSON( "examples/" + exampleName + ".json", function( data ) {
-        inputCodeMirror. setValue( JSON.stringify( data.input, null, '\t' ) );
-        specCodeMirror.  setValue( JSON.stringify( data.spec,  null, '\t' ) );
-        outputCodeMirror.setValue( "" );
+    $.ajax({
+        url : "examples/" + exampleName + "-input.json",
+        dataType: "text",
+        success : function (data) {
+            inputCodeMirror.setValue( data );
+        }
     });
+
+    $.ajax({
+        url : "examples/" + exampleName + "-spec.json",
+        dataType: "text",
+        success : function (data) {
+            specCodeMirror.setValue( data );
+        }
+    });
+
+    outputCodeMirror.setValue( "" );
 }
 
 // Make it so that Jolt examples are something you can grab out of the URL bar and send to other ppl.

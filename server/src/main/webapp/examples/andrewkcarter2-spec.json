@@ -1,0 +1,28 @@
+[
+  // Test from Jolt Issue 98 : Question two from andrewkcarter
+  // Summary : Filter the "book object" by their availability type.
+  // In particular we just want Paperback books.
+  {
+    "operation": "shift",
+    "spec": {
+      "books": {
+        // loop thru all the elements books array
+        "*": {
+          "availability": {
+            // loop thru each element of the availability array
+            "*": {
+              // if the value in the array is "paperback"
+              // grab the whole "book object" and write it out to
+              // a PaperBooks array.
+              // The "@3" means go up the tree 4 levels and grab what is there
+              // 4 levels up cause "real" programmers count from 0  ;)
+              "paperback": {
+                "@3": "PaperBooks[]"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

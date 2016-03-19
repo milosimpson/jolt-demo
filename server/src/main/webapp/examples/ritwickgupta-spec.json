@@ -1,0 +1,22 @@
+[
+  // Issue from issue #116  Value to Key conversion
+  // Is a good test case for @ "transpose" operator on the Right and Left hand sides
+  // "@quantity": "basket_item.[].@itemName"
+  {
+    "operation": "shift",
+    "spec": {
+      "chainId": "retailer_id",
+      "restaurantId": "store_id",
+      "orderItems": {
+        // loop thru the orderItems array
+        "*": {
+          // grab the value at "quantity" to use as output
+          // Write it to a basket_item array, with the key being
+          //  what ever is at itemName.
+          "quantity": "basket_item.[].@(1,itemName)"
+        }
+      }
+    }
+  }
+]
+

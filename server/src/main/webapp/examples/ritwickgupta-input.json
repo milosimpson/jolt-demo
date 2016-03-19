@@ -1,0 +1,14 @@
+{
+  "restaurantId": "ZZ4ORJDY3E",
+  "chainId": "RLR932KI",
+  "orderItems": [
+    {
+      "itemName": "Small Barqs",
+      "quantity": 2
+    },
+    {
+      "itemName": "Mozzz",
+      "quantity": 1
+    }
+  ]
+}

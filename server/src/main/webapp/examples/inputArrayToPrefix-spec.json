@@ -1,0 +1,16 @@
+[
+  // Flatten an array of photo objects into a prefixed
+  //  soup of properties.
+  {
+    "operation": "shift",
+    "spec": {
+      "Photos": {
+        "*": {
+          "Id": "photo-&1-id",
+          "Caption": "photo-&1-caption",
+          "Url": "photo-&1-url"
+        }
+      }
+    }
+  }
+]

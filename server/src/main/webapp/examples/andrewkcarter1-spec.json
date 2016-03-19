@@ -1,0 +1,16 @@
+[
+  // Test from Jolt Issue 98 : Question one from andrewkcarter
+  // Summary : Bucket data from an Array, based on a leaf level value
+  {
+    "operation": "shift",
+    "spec": {
+      "entities": {
+        // The "*" matches each Map pair of "type" and "data".
+        // We then write the pair to a top level array whos name is the "type"
+        // The "[]" means always write to an array, even when there is only one
+        //  item written.
+        "*": "@type[]"
+      }
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "entities": [
+    {
+      "type": "alpha",
+      "data": "foo"
+    },
+    {
+      "type": "beta",
+      "data": "bar"
+    },
+    {
+      "type": "alpha",
+      "data": "zoo"
+    }
+  ]
+}

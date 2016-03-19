@@ -1,0 +1,23 @@
+{
+  "books": [
+    {
+      "title": "foo",
+      "availability": [
+        "online"
+      ]
+    },
+    {
+      "title": "bar",
+      "availability": [
+        "online",
+        "paperback"
+      ]
+    },
+    {
+      "title": "baz",
+      "availability": [
+        "paperback"
+      ]
+    }
+  ]
+}

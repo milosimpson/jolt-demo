@@ -1,0 +1,12 @@
+{
+  "data" : {
+    "1234": {
+      "clientId": "12",
+      "hidden": true
+    },
+    "1235": {
+      "clientId": "35",
+      "hidden": false
+    }
+  }
+}
