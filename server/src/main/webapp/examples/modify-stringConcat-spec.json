@@ -1,0 +1,25 @@
+[
+  {
+    "operation": "modify-default-beta",
+    "spec": {
+      "people": {
+        "*": {
+          // build the fullName from the first and last names
+          //
+          // @(1,firstName)
+          //  -  is "evaluated" before being passed to the =concat function.
+          //  -  means go up two levels, and then come back down and grab
+          //      the value from firstName
+          "fullName": "=concat(@(1,firstName),' ',@(1,lastName))",
+          //
+          // Suffix of "?" means only match if the input actually has an "address"
+          "address?": {
+            // The transform "modify-default-beta" will only match if the
+            //  "left hand side" does not exist or is null
+            "state": "Texas"
+          }
+        }
+      }
+    }
+  }
+]

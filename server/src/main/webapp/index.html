@@ -45,7 +45,7 @@
 
 <div class="row"> <!-- row 1 -->
 <div class="col-lg-12">
-<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.0.21">v0.0.21</a></h1>
+<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.0.22">v0.0.22</a></h1>
 Here you can experiment with the stock Jolt Transforms without having to download and run the Java code.
 </div>
 </div> <!-- row 1 -->
@@ -103,11 +103,11 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
 
     <div class="col-lg-4 col-md-6 col-sm-12">
 
-        <div id="examplesPanel" class="panel panel-default">
+        <div id="examplesPanel-original" class="panel panel-default">
             <div class="panel-heading">
-                <label for="examples">Examples</label>
+                <label for="examples-original">Original Examples : Shiftr</label>
             </div>
-            <div class="panel-body" id="examples">
+            <div class="panel-body" id="examples-original">
                 <ol>
                     <li><a href="#" onclick="loadExample( 'inception' ); return false;">Inception</a></li>
                     <li><a href="#" onclick="loadExample( 'bucketToPrefixSoup' ); return false;">Convert nested data, to 'prefix soup'.</a></li>
@@ -129,6 +129,22 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
 
     <div class="col-lg-4 col-md-6 col-sm-12">
 
+        <div id="examplesPanel-modify" class="panel panel-default">
+            <div class="panel-heading">
+                <label for="examples-modify">Examples : Modify Beta</label>
+            </div>
+            <div class="panel-body" id="examples-modify">
+                <ol>
+                    <li><a href="#" onclick="loadExample( 'modify-typeConversion' ); return false;">Type Conversion</a></li>
+                    <li><a href="#" onclick="loadExample( 'modify-stringConcat' ); return false;">String Concatenation</a></li>
+                    <li><a href="#" onclick="loadExample( 'modify-listFunctions' ); return false;">List Funcions</a></li>
+                </ol>
+            </div>
+        </div>
+    </div> <!-- row 3 column 2 -->
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+
         <div id="thanksPanel" class="panel panel-default">
             <div class="panel-heading">
                 <label for="thanks">Thanks To</label>
@@ -141,7 +157,7 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
                 <p>&nbsp;<a href="http://browserify.org/">Browserify</a> : Converting node.js packages into browser usable js files. </p>
             </div>
         </div>
-    </div> <!-- row 3 column 2 -->
+    </div> <!-- row 3 column 3 -->
 </div>
 
 </form>

@@ -1,0 +1,27 @@
+[
+  {
+    "operation": "modify-overwrite-beta",
+    "spec": {
+      "statistics": {
+        "*": {
+          "min": ["=toInteger", 0],
+          "max": ["=toInteger", null],
+          "avg": ["=toDouble", null],
+          //
+          // For min, max, and average "overwrite" is the right thing to do
+          //  which is why the transform is "modify-overwrite"
+          //
+          // However, we don't actually want to "overwrite" the "id" it exists
+          //  but we do want to apply a default if it does not.
+          // In the input, the 2nd item in the "statistics" array is missing its id.
+          //
+          // The solution is to apply a "node level" change of behavior from
+          //  "overwrite" to "define", so that we will only fill in the id if it is missing.
+          //
+          // To do this we prefix the ke, "id", with an underscore, "_".
+          "_id": "UNKNOWN"
+        }
+      }
+    }
+  }
+]

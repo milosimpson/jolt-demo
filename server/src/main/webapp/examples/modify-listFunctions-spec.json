@@ -1,0 +1,13 @@
+[
+  {
+    "operation": "modify-overwrite-beta",
+    "spec": {
+      // Pull individual data out of the scores array
+      "firstScore": "=firstElement(@(1,scores))",
+      "lastScore": "=lastElement(@(1,scores))",
+      //
+      // Assuming that the scores array is always size of 5
+      "scoreAtMidPoint": "=elementAt(@(1,scores),2)"
+    }
+  }
+]
