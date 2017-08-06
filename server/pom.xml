@@ -16,13 +16,13 @@
 
     <properties>
         <!-- Bump this when uploading new versions to Google, works now. -->
-        <appengine.app.version>11</appengine.app.version>
+        <appengine.app.version>13</appengine.app.version>
 
-        <appengine.target.version>1.9.38</appengine.target.version>
+        <appengine.target.version>1.9.54</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jersey.version>2.22.1</jersey.version>
-        <jolt.version>0.0.24</jolt.version>
+        <jolt.version>0.1.0</jolt.version>
     </properties>
 
     <dependencies>
@@ -110,18 +110,18 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <version>3.3</version>
+                <version>3.6.2</version>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.1.0</version>
                 <configuration>
                     <archiveClasses>true</archiveClasses>
                     <webResources>
