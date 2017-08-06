@@ -7,8 +7,8 @@
       "z": "=join(' ',@(1,x))",
       //
       // make small big, and make big small
-      "small": "=toUpper",
-      "BIG": "=toLower",
+      "small_toUpper": "=toUpper(@(1,small))",
+      "BIG_toLower": "=toLower(@(1,BIG))",
       //
       // Here we are dealing with an array of people objects.
       // We want to build a fullName for them, and default them

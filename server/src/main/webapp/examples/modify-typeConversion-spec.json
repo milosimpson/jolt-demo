@@ -6,7 +6,7 @@
       "happy": "=toBoolean",
       // meh might not be a boolean, so if it does not evaluate to a boolean
       //  then default in a boolean of false
-      "meh": [ "=toBoolean", false ],
+      "meh": ["=toBoolean", false],
       //
       // convert the number to a String
       "answer": "=toString",
