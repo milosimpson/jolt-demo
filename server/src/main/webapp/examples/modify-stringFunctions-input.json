@@ -1,0 +1,19 @@
+{
+  "x": [ 3, 2, 1, "go"  ],
+  "small": "small",
+  "BIG": "BIG",
+
+  "people": [
+    {
+      "firstName": "Bob",
+      "lastName": "Smith",
+      "address": {
+        "state": null
+      }
+    },
+    {
+      "firstName": "Sterling",
+      "lastName": "Archer"
+    }
+  ]
+}

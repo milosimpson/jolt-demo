@@ -1,4 +1,8 @@
 {
+  "happy": "true",
+  "meh": "meh",
+  "answer": 42,
+
   "statistics" : [
     {
       "id" : "A",

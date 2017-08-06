@@ -2,16 +2,34 @@
   {
     "operation": "modify-overwrite-beta",
     "spec": {
+      // convert strings to a boolean, case-insensitive
+      "happy": "=toBoolean",
+      // meh might not be a boolean, so if it does not evaluate to a boolean
+      //  then default in a boolean of false
+      "meh": [ "=toBoolean", false ],
+      //
+      // convert the number to a String
+      "answer": "=toString",
+      //
+      //
+      // Here we want to do some type conversions, and specify
+      //  default values for missing data.
       "statistics": {
         "*": {
+          // Overwrite min, max, and avg by type converting them.
+          // If they don't exist, then fill in default values.
           "min": ["=toInteger", 0],
           "max": ["=toInteger", null],
           "avg": ["=toDouble", null],
           //
-          // For min, max, and average "overwrite" is the right thing to do
-          //  which is why the transform is "modify-overwrite"
+          // In this example, min, max, and average "overwrite"
+          // is the right thing to do (why the operation is
+          //   "modify-overwrite-beta")
           //
-          // However, we don't actually want to "overwrite" the "id" it exists
+          // Note that the 2nd item in the list does not have and "id"
+          //  field.
+          //
+          // Is this instane, we don't actually want to "overwrite" the "id" it exists
           //  but we do want to apply a default if it does not.
           // In the input, the 2nd item in the "statistics" array is missing its id.
           //

@@ -1,0 +1,31 @@
+[
+  {
+    "operation": "modify-overwrite-beta",
+    "spec": {
+      //
+      // Sums
+      "sumIntData": "=intSum(@(1,intData))",
+      "sumLongData": "=intSum(@(1,intData))", // same as intSum but returns a Java Long
+      "sumDoubleData": "=doubleSum(@(1,doubleData))",
+      //
+      // Averages
+      "avgIntData" : "=avg(@(1,intData))",    // note this returns a double
+      "avgDoubleData" : "=avg(@(1,doubleData))",
+      //
+      // Sort ascending
+      "sortedIntScores" : "=sort(@(1,intData))",
+      //
+      // Min, Max, Absolute Value
+      "minAB" : "=min(@(1,a),@(1,b))",  // should be 5
+      "maxAB" : "=max(@(1,a),@(1,b))",  // should be 10
+      "abs" : "=abs(@(1,negative))",
+      //
+      // Divide
+      "aDivB": "=divide(@(1,a),@(1,b))",
+      "aDivC": "=divide(@(1,a),@(1,c))", // will be 3.3333
+      //
+      // Divide and Round : decimal point to round to is first param
+      "aDivCRounded4": "=divideAndRound(4,@(1,a),@(1,c))"
+    }
+  }
+]

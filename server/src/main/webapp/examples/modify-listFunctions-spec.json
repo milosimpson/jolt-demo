@@ -2,12 +2,16 @@
   {
     "operation": "modify-overwrite-beta",
     "spec": {
+      // what is the length of the scores array
+      "numScores": "=size(@(1,scores))",
+      //
       // Pull individual data out of the scores array
       "firstScore": "=firstElement(@(1,scores))",
       "lastScore": "=lastElement(@(1,scores))",
       //
       // Assuming that the scores array is always size of 5
-      "scoreAtMidPoint": "=elementAt(@(1,scores),2)"
-    }
+      "scoreAtMidPoint": "=elementAt(@(1,scores),2)",
+      // Sort the scores ascending
+      "sortedScores": "=sort(@(1,scores))"    }
   }
 ]

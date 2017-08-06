@@ -45,7 +45,7 @@
 
 <div class="row"> <!-- row 1 -->
 <div class="col-lg-12">
-<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.0.22">v0.0.22</a></h1>
+<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.0.24">v0.0.24</a></h1>
 Here you can experiment with the stock Jolt Transforms without having to download and run the Java code.
 </div>
 </div> <!-- row 1 -->
@@ -88,7 +88,7 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
         <div class="panel-heading">
             <label for="outputJson">Output / Errors</label>
             <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
-            <input id=sort type="checkbox" name="sort" value="doSort" checked/>
+            <input id=sort type="checkbox" name="sort" value="doSort"/>
             <label for="sort">Sort Output?</label>
         </div>
         <div class="panel-body">
@@ -135,9 +135,10 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
             </div>
             <div class="panel-body" id="examples-modify">
                 <ol>
+                    <li><a href="#" onclick="loadExample( 'modify-listFunctions' ); return false;">List Functions</a></li>
+                    <li><a href="#" onclick="loadExample( 'modify-mathFunctions' ); return false;">Math Functions</a></li>
                     <li><a href="#" onclick="loadExample( 'modify-typeConversion' ); return false;">Type Conversion</a></li>
-                    <li><a href="#" onclick="loadExample( 'modify-stringConcat' ); return false;">String Concatenation</a></li>
-                    <li><a href="#" onclick="loadExample( 'modify-listFunctions' ); return false;">List Funcions</a></li>
+                    <li><a href="#" onclick="loadExample( 'modify-stringFunctions' ); return false;">String Concatenation</a></li>
                 </ol>
             </div>
         </div>
@@ -270,7 +271,7 @@ function validateInput() {
     var theJson = parseJson( inputCodeMirror.getValue(), false );
     if ( theJson ) {
         inputPanel.toggleClass("panel-danger", false);
-        inputCodeMirror.setValue( JSON.stringify( theJson, null, '\t' ) );
+        inputCodeMirror.setValue( JSON.stringify( theJson, null, '  ' ) );
         return true;
     }
     else {

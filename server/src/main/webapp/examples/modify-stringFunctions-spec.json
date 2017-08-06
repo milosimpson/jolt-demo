@@ -2,6 +2,17 @@
   {
     "operation": "modify-default-beta",
     "spec": {
+      // String join the values in the array x, with a comma and a space
+      "y": "=join(',',@(1,x))",
+      "z": "=join(' ',@(1,x))",
+      //
+      // make small big, and make big small
+      "small": "=toUpper",
+      "BIG": "=toLower",
+      //
+      // Here we are dealing with an array of people objects.
+      // We want to build a fullName for them, and default them
+      // to 'live' in Texas, only if they don't already have an address defined.
       "people": {
         "*": {
           // build the fullName from the first and last names
