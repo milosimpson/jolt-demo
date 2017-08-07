@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<web-app
-        version="2.5"
-        xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
 
+    <!--
+        With the new Java8 App Engine, I could not get the
+        pretty JAX-RS stuff working.
+
+        So just roll with a Bog Standard Servlet.
+    -->
     <servlet >
-        <servlet-name>Jersey Servlet</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>javax.ws.rs.Application</param-name>
-            <param-value>com.bazaarvoice.jolt.JoltDemoJerseyApp</param-value>
-        </init-param>
-        <init-param>
-            <!-- This is necessary for Jersey to automatically parse application/json into Java -->
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.fasterxml.jackson.jaxrs.json;service</param-value>
-        </init-param>
-        <!--<init-param>-->
-            <!--<param-name>jersey.config.server.provider.classnames</param-name>-->
-            <!--<param-value>org.glassfish.jersey.filter.LoggingFilter</param-value>-->
-        <!--</init-param>-->
+        <servlet-name>Jolt Servlet</servlet-name>
+        <servlet-class>com.bazaarvoice.jolt.JoltServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Jersey Servlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>Jolt Servlet</servlet-name>
+        <url-pattern>/transform</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
