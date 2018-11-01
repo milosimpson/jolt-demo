@@ -17,7 +17,8 @@
     <properties>
         <!-- Version of the Demo Site wrt Deployments is now handled in the AppEngine UI / deploy job. -->
 
-        <jolt.version>0.1.0</jolt.version>
+        <jolt.version>0.1.1</jolt.version>
+        <appEngine.version>1.9.65</appEngine.version>
 
         <!-- uncomment if you wish to set your project here project- gcloud is used otherwise -->
         <app.deploy.project>jolt-demo</app.deploy.project>
@@ -44,7 +45,7 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>1.9.54</version>
+            <version>${appEngine.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -63,20 +64,20 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
-            <version>1.9.54</version>
+            <version>${appEngine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-stubs</artifactId>
-            <version>1.9.54</version>
+            <version>${appEngine.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-tools-sdk</artifactId>
-            <version>1.9.54</version>
+            <version>${appEngine.version}</version>
             <scope>test</scope>
         </dependency>
 

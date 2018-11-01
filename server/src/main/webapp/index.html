@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Jolt Transform Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 
     <!-- Use the cdn hosted bootstrap -->
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
         /* This makes the panels have some padding from the edge of the screen. */
@@ -45,7 +45,7 @@
 
 <div class="row"> <!-- row 1 -->
 <div class="col-lg-12">
-<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.1.0">v0.1.0</a></h1>
+<h1>Jolt Transform Demo Using <a href="https://github.com/bazaarvoice/jolt/releases/tag/jolt-0.1.1">v0.1.1</a></h1>
 Here you can experiment with the stock Jolt Transforms without having to download and run the Java code.
 </div>
 </div> <!-- row 1 -->
@@ -164,14 +164,19 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
 </form>
 
 <!-- Load up the Core CodeMirror JavaScript and CSSs. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/mode/javascript/javascript.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/codemirror.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/theme/eclipse.min.css">
+
+<!-- Specifically not loading the minified version of codemirror
+  https://blog.entelect.co.za/view/6435/minification-and-why-i-m-seeing-instead-of-whitespace
+  https://github.com/codemirror/CodeMirror/issues/2276
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/javascript/javascript.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/theme/eclipse.min.css">
 
 <!-- Load up the Lint stuff : This will show nice red errors on JSON mis-format. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/lint.min.js"></script>  <!-- core lib -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/lint.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/addon/lint/lint.min.js"></script>  <!-- core lib -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/addon/lint/lint.min.css">
 
 <!--
     FYI the way the CodeMirror lint addons work is they wrap existing lint tools like jsonLint and jsHint
@@ -179,14 +184,14 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
 -->
 <!-- JSON Lint -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/json-lint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/addon/lint/json-lint.min.js"></script>
 
 <!-- JavaScript Lint : Use it for the Spec so that I can have comments, it is however a slightly worse lint -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.1/jshint.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/lint/javascript-lint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.6/jshint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/addon/lint/javascript-lint.min.js"></script>
 
 <!-- Load up the extra goodies : MatchBrackets highlights opening and closing { } -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/addon/edit/matchbrackets.min.js"></script>
 
 <!-- Load the browserified node.js Json parser that allows for comments -->
 <script src="lib/browserifiedNodeJsonParser.js"></script>
@@ -396,15 +401,15 @@ else {
     loadExample( "inception" );
 }
 
-
-<!-- Base level Google Analytics, nice to know how many people use the tool. -->
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-60029024-1', 'auto');
-ga('send', 'pageview');
+//
+//<!-- Base level Google Analytics, nice to know how many people use the tool. -->
+//(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+//    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+//        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+//
+//ga('create', 'UA-60029024-1', 'auto');
+//ga('send', 'pageview');
 </script>
 
 </body>

@@ -3,9 +3,9 @@ Copyright (C) 2010-2012 Google Inc.
 
 ## Skeleton application for use with App Engine Java.
 
-Java should be 1.7.
+Java should be 1.8.
 
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 Requires [Apache Maven](http://maven.apache.org) 3.0 or greater, and JDK 6+ in order to run.
 
