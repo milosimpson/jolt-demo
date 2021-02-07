@@ -1,6 +1,57 @@
 App Engine Java Application
 Copyright (C) 2010-2012 Google Inc.
 
+## Update 2021-02
+
+Google Free Tier still exists, but they really really really want a credit card to bill.
+So need to push an updated version of the app that says "only one instance ever".
+
+### Work
+
+Updated to Java11 appEngine that does not want to use a war file, and wants a DropWizard/SpringBoot
+style main method class that starts jetty.
+
+Followed https://cloud.google.com/appengine/docs/standard/java11/java-differences
+And did minimal work.   
+See also https://happycoding.io/tutorials/google-cloud/migrating-to-java-11
+
+This entailed downloading a google repo that "main-ifys" the running of a War file.
+
+#### Run the thing locally
+
+```
+# build the war
+cd ~/code/milo/jolt-demo
+mvn clean install
+
+# run the war
+~/code/milo/java-docs-samples/appengine-java11/appengine-simple-jetty-main
+mvn exec:java -Dexec.args="../../../jolt-demo/server/target/server-0.0.1-SNAPSHOT.war"
+```
+
+#### Deploy
+
+```
+edit this part in the server/pom.xml part to make a new version
+
+<plugin>
+    <groupId>com.google.cloud.tools</groupId>
+    <artifactId>appengine-maven-plugin</artifactId>
+    <version>2.2.0</version>
+    <configuration>
+        <projectId>jolt-demo</projectId>
+        <version>15</version>
+    </configuration>
+</plugin>
+            
+
+
+cd server
+
+mvn clean package appengine:deploy
+```
+
+
 ## Skeleton application for use with App Engine Java.
 
 Java should be 1.8.

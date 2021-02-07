@@ -1,0 +1,6 @@
+# [START gae_java11_runtime]
+runtime: java11
+entrypoint: 'java -cp "*" com.example.appengine.demo.jettymain.Main server-0.0.1-SNAPSHOT.war'
+
+automatic_scaling:
+  max_instances: 1
