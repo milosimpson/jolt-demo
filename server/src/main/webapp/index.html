@@ -59,10 +59,11 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
         <div class="panel-heading">
             <label for="input">Json Input</label>
             <button type="button" id="inputValidateButton" class="btn btn-default">JSON Validate</button>
+            <input name="model_name" id="model_name" placeholder="Model name">
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" name="input" id="input" rows="20">
-            </textarea>
+            </textarea>                        
         </div>
     </div>
 </div> <!-- column 1 -->
@@ -90,7 +91,10 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
             <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
             <input id=sort type="checkbox" name="sort" value="doSort"/>
             <label for="sort">Sort Output?</label>
-            <button id="raisePRButton" name="raisePRButton" type="button" class="btn btn-default">Raise PR</button>
+            <div>
+	            <input name="branch_name" id="branch_name" placeholder="Branch name">
+	            <button id="raisePRButton" name="raisePRButton" type="button" class="btn btn-default">Raise PR</button>
+            </div>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="outputJson" rows="20">
@@ -345,7 +349,7 @@ $("#transformForm").submit(function(event) {
         // return false so that we prevent the standard form submit behavior from happening
         return false;
     }
-
+        
     // get some values from elements on the page:
     var $form = $( this ),
         input = inputCodeMirror.getValue(),
@@ -405,8 +409,17 @@ else {
 $("#raisePRButton").click(function(event) {
 	var inputValid = validateInput();
     var specValid = validateSpec();
+    var modelName = $('#model_name').val();
+    var branchName = $('#branch_name').val();
+    
     if ( ! inputValid || ! specValid ) {
         outputCodeMirror.setValue( "Problem with input or spec JSON." );
+
+        // return false so that we prevent the standard form submit behavior from happening
+        return false;
+    }    
+    if ( modelName === undefined | modelName === "" || branchName === undefined || branchName == "" ) {
+        outputCodeMirror.setValue( "Please provide branch name and model name" );
 
         // return false so that we prevent the standard form submit behavior from happening
         return false;
@@ -419,9 +432,11 @@ $("#raisePRButton").click(function(event) {
         url   = '/server/pullrequest'
 
     outputCodeMirror.setValue( "Sending 'input' and 'spec' to the server to submit PR." );
-
+    
+    
+    
     // Send the data using post
-    var posting = $.post( url, { input : input, spec : spec} );
+    var posting = $.post( url, { input : input, spec : spec, modelName: modelName, branchName: branchName} );
 
     // Put the results in a div
     posting.done(function( data ) {
