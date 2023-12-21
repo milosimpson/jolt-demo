@@ -102,6 +102,11 @@
             <version>${jolt.version}</version>
         </dependency>
 
+        <dependency>
+        	<groupId>com.freshservice</groupId>
+        	<artifactId>jolt-verification</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
