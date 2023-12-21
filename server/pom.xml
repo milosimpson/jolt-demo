@@ -36,15 +36,46 @@
     </prerequisites>
 
     <dependencies>
-
-
+		<dependency>
+		    <groupId>org.eclipse.jgit</groupId>
+		    <artifactId>org.eclipse.jgit</artifactId>
+		    <version>6.6.1.202309021850-r</version>
+		</dependency>
         <dependency>
             <groupId>com.example.appengine.demo</groupId>
             <artifactId>simple-jetty-main</artifactId>
             <version>1</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>9.4.25.v20191220</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-webapp</artifactId>
+      <version>9.4.25.v20191220</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
+      <version>9.4.25.v20191220</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-annotations</artifactId>
+      <version>9.4.25.v20191220</version>
+      <type>jar</type>
+    </dependency>
+    <!-- extra explicit dependency needed because there is a JSP in the sample-->
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>apache-jsp</artifactId>
+      <version>9.4.25.v20191220</version>
+    </dependency>
+  
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

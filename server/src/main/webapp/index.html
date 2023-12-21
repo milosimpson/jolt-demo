@@ -90,6 +90,7 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
             <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
             <input id=sort type="checkbox" name="sort" value="doSort"/>
             <label for="sort">Sort Output?</label>
+            <button id="raisePRButton" name="raisePRButton" type="button" class="btn btn-default">Raise PR</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="outputJson" rows="20">
@@ -401,6 +402,36 @@ else {
     loadExample( "inception" );
 }
 
+$("#raisePRButton").click(function(event) {
+	var inputValid = validateInput();
+    var specValid = validateSpec();
+    if ( ! inputValid || ! specValid ) {
+        outputCodeMirror.setValue( "Problem with input or spec JSON." );
+
+        // return false so that we prevent the standard form submit behavior from happening
+        return false;
+    }
+
+    // get some values from elements on the page:
+    var $form = $( this ),
+        input = inputCodeMirror.getValue(),
+        spec  = specCodeMirror.getValue(),        
+        url   = '/server/pullrequest'
+
+    outputCodeMirror.setValue( "Sending 'input' and 'spec' to the server to submit PR." );
+
+    // Send the data using post
+    var posting = $.post( url, { input : input, spec : spec} );
+
+    // Put the results in a div
+    posting.done(function( data ) {
+        var content = data ;
+        outputCodeMirror.setValue( content );
+    });
+
+    // return false so that we prevent the standard form submit behavior from happening
+    return false;
+});
 //
 //<!-- Base level Google Analytics, nice to know how many people use the tool. -->
 //(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

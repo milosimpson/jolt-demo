@@ -1,13 +1,13 @@
 package com.bazaarvoice.jolt;
 
-import com.bazaarvoice.jolt.exception.JoltException;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.bazaarvoice.jolt.exception.JoltException;
 
 /**
  * With the move to the Java8 App Engine, I had a hell of a time
