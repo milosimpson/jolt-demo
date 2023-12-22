@@ -50,8 +50,8 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
 </div>
 </div> <!-- row 1 -->
 
-<form id="transformForm" role="form" action="/transform" method="post">
-
+<form id="transformForm" role="form" action="/server-0.0.1-SNAPSHOT/transform" method="post">
+<form id="generateForm" role="form" action="/server-0.0.1-SNAPSHOT/generate" method="post">
 <div class="row"> <!-- row 2 -->
 <div class="col-lg-4 col-md-6 col-sm-12">
 
@@ -59,6 +59,7 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
         <div class="panel-heading">
             <label for="input">Json Input</label>
             <button type="button" id="inputValidateButton" class="btn btn-default">JSON Validate</button>
+            <input name="model_name" id="model_name" placeholder="Model name">
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" name="input" id="input" rows="20">
@@ -73,6 +74,7 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
         <div class="panel-heading">
             <label for="spec">Jolt Spec</label>
             <button type="button" id="specValidateButton" class="btn btn-default">JSON Validate</button>
+            <button type="button" id="specGenerateButton" class="btn btn-default">Generate</button>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="spec" rows="20">
@@ -90,6 +92,10 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
             <button id="processButton" name="processButton" type="submit" class="btn btn-default">Transform</button>
             <input id=sort type="checkbox" name="sort" value="doSort"/>
             <label for="sort">Sort Output?</label>
+            <div>
+	            <input name="branch_name" id="branch_name" placeholder="Branch name">
+	            <button id="raisePRButton" name="raisePRButton" type="button" class="btn btn-default">Raise PR</button>
+            </div>
         </div>
         <div class="panel-body">
             <textarea form="transformForm" class="form-control" id="outputJson" rows="20">
@@ -139,6 +145,7 @@ Here you can experiment with the stock Jolt Transforms without having to downloa
                     <li><a href="#" onclick="loadExample( 'modify-mathFunctions' ); return false;">Math Functions</a></li>
                     <li><a href="#" onclick="loadExample( 'modify-typeConversion' ); return false;">Type Conversion</a></li>
                     <li><a href="#" onclick="loadExample( 'modify-stringFunctions' ); return false;">String Concatenation</a></li>
+                    <li><a href="#" onclick="loadExample( 'modify-fwService' ); return false;">FreshWorks Service</a></li>
                 </ol>
             </div>
         </div>
@@ -287,6 +294,38 @@ function validateInput() {
 
 $("#inputValidateButton").click( validateInput );
 
+function generateSpec() {
+    var inputPanel = $("#inputPanel");
+    var inputJSON = inputCodeMirror.getValue();
+    console.log("=============");
+    console.log(inputJSON);
+
+    var inputValid = validateInput();
+    if ( ! inputValid ) {
+        outputCodeMirror.setValue( "Problem with input JSON." );
+
+        // return false so that we prevent the standard form submit behavior from happening
+        return false;
+    }
+
+    // get some values from elements on the page:
+    var $form = $( this ),
+        input = inputCodeMirror.getValue(),
+        sort  = $("#sort").is(":checked"),
+        url   = "/server-0.0.1-SNAPSHOT/generate";
+
+    // Send the data using post
+    var posting = $.post( url, { input : input, sort : sort } );
+
+    // Put the results in a div
+    posting.done(function( data ) {
+        var content = data ;
+        console.log("========== After Response ==========");
+        console.log("data-> " + data);
+        specCodeMirror.setValue( js_beautify( data, js_beautifyOptions ) );
+    });
+}
+
 function validateSpec() {
 
     var specPanel = $("#specPanel");
@@ -305,6 +344,7 @@ function validateSpec() {
 }
 
 $("#specValidateButton").click( validateSpec );
+$("#specGenerateButton").click( generateSpec );
 
 var js_beautifyOptions =
 {
@@ -329,6 +369,7 @@ var js_beautifyOptions =
     "wrap_attributes_indent_size": 4,
     "end_with_newline": true
 };
+
 
 /*
  * Attach a submit handler to the form.
@@ -401,6 +442,47 @@ else {
     loadExample( "inception" );
 }
 
+$("#raisePRButton").click(function(event) {
+	var inputValid = validateInput();
+    var specValid = validateSpec();
+    var modelName = $('#model_name').val();
+    var branchName = $('#branch_name').val();
+
+    if ( ! inputValid || ! specValid ) {
+        outputCodeMirror.setValue( "Problem with input or spec JSON." );
+
+        // return false so that we prevent the standard form submit behavior from happening
+        return false;
+    }
+    if ( modelName === undefined | modelName === "" || branchName === undefined || branchName == "" ) {
+        outputCodeMirror.setValue( "Please provide branch name and model name" );
+
+        // return false so that we prevent the standard form submit behavior from happening
+        return false;
+    }
+
+    // get some values from elements on the page:
+    var $form = $( this ),
+        input = inputCodeMirror.getValue(),
+        spec  = specCodeMirror.getValue(),
+        url   = '/server/pullrequest'
+
+    outputCodeMirror.setValue( "Sending 'input' and 'spec' to the server to submit PR." );
+
+
+
+    // Send the data using post
+    var posting = $.post( url, { input : input, spec : spec, modelName: modelName, branchName: branchName} );
+
+    // Put the results in a div
+    posting.done(function( data ) {
+        var content = data ;
+        outputCodeMirror.setValue( content );
+    });
+
+    // return false so that we prevent the standard form submit behavior from happening
+    return false;
+});
 //
 //<!-- Base level Google Analytics, nice to know how many people use the tool. -->
 //(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
